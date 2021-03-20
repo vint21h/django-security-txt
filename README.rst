@@ -1,0 +1,90 @@
+.. django-security-txt
+.. README.rst
+
+
+A django-security-txt documentation
+===================================
+
+|GitHub|_ |Coveralls|_ |Requires|_ |pypi-license|_ |pypi-version|_ |pypi-python-version|_ |pypi-django-version|_ |pypi-format|_ |pypi-wheel|_ |pypi-status|_
+
+    *django-security-txt is a Django reusable application to handle security.txt (http://securitytxt.org/)*
+
+.. contents::
+
+Installation
+------------
+* Obtain your copy of source code from the git repository: ``$ git clone https://github.com/vint21h/django-security-txt.git``. Or download the latest release from https://github.com/vint21h/django-security-txt/tags/.
+* Run ``$ python ./setup.py install`` from the repository source tree or the unpacked archive. Or use pip: ``$ pip install django-security-txt``.
+
+Configuration
+-------------
+* Add ``"security_txt"`` to ``settings.INSTALLED_APPS``:
+
+.. code-block:: python
+
+    # settings.py
+
+    INSTALLED_APPS += [
+        "security_txt",
+    ]
+
+* Add ``"security_txt"`` to your URLs definitions:
+
+.. code-block:: python
+
+    # urls.py
+
+    from django.urls import re_path
+
+
+    urlpatterns += [
+        re_path(r"^security\.txt", include("security_txt.urls")),
+    ]
+
+Settings
+--------
+
+Licensing
+---------
+django-security-txt is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (a
+t your option) any later version.
+For complete license text see COPYING file.
+
+Contacts
+--------
+**Project Website**: https://github.com/vint21h/django-security-txt/
+
+**Author**: Alexei Andrushievich <vint21h@vint21h.pp.ua>
+
+For other authors list see AUTHORS file.
+
+.. |GitHub| image:: https://github.com/vint21h/django-security-txt/workflows/build/badge.svg
+    :alt: GitHub
+.. |Coveralls| image:: https://coveralls.io/repos/github/vint21h/django-security-txt/badge.svg?branch=master
+    :alt: Coveralls
+.. |Requires| image:: https://requires.io/github/vint21h/django-security-txt/requirements.svg?branch=master
+    :alt: Requires
+.. |pypi-license| image:: https://img.shields.io/pypi/l/django-security-txt
+    :alt: License
+.. |pypi-version| image:: https://img.shields.io/pypi/v/django-security-txt
+    :alt: Version
+.. |pypi-django-version| image:: https://img.shields.io/pypi/djversions/django-security-txt
+    :alt: Supported Django version
+.. |pypi-python-version| image:: https://img.shields.io/pypi/pyversions/django-security-txt
+    :alt: Supported Python version
+.. |pypi-format| image:: https://img.shields.io/pypi/format/django-security-txt
+    :alt: Package format
+.. |pypi-wheel| image:: https://img.shields.io/pypi/wheel/django-security-txt
+    :alt: Python wheel support
+.. |pypi-status| image:: https://img.shields.io/pypi/status/django-security-txt
+    :alt: Package status
+.. _GitHub: https://github.com/vint21h/django-security-txt/actions/
+.. _Coveralls: https://coveralls.io/github/vint21h/django-security-txt?branch=master
+.. _Requires: https://requires.io/github/vint21h/django-security-txt/requirements/?branch=master
+.. _pypi-license: https://pypi.org/project/django-security-txt/
+.. _pypi-version: https://pypi.org/project/django-security-txt/
+.. _pypi-django-version: https://pypi.org/project/django-security-txt/
+.. _pypi-python-version: https://pypi.org/project/django-security-txt/
+.. _pypi-format: https://pypi.org/project/django-security-txt/
+.. _pypi-wheel: https://pypi.org/project/django-security-txt/
+.. _pypi-status: https://pypi.org/project/django-security-txt/

@@ -1,0 +1,7 @@
+# django-security-txt
+# MANIFEST.in
+
+
+prune tests*
+recursive-include security_txt *.po
+recursive-include security_txt *.mo
