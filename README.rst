@@ -38,7 +38,7 @@ Configuration
 
 
     urlpatterns += [
-        re_path(r"^security\.txt", include("security_txt.urls")),
+        re_path(r"^.well-known/security\.txt", include("security_txt.urls")),
     ]
 
 Settings
