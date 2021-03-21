@@ -1,0 +1,7 @@
+{# django-security-txt #}
+{# security_txt/templates/security_txt/security_txt.txt #}
+
+
+{% for acknowledgment in SECURITY_TXT_ACKNOWLEDGMENTS %}
+    Acknowledgments: {{ acknowledgment.url }}
+{% endif %}

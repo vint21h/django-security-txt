@@ -19,8 +19,6 @@ class DjangoSecurityTxtAppConf(AppConf):
     Django security.txt settings.
     """
 
-    ACKNOWLEDGMENTS = getattr(settings, "SECURITY_TXT_ACKNOWLEDGMENTS", "")  # type: str
-
     class Meta:
         """
         Config settings.

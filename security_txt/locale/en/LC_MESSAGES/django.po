@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-security-txt 0.0.0\n"
 "Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2021-03-20 16:55+0200\n"
+"POT-Creation-Date: 2021-03-21 16:14+0200\n"
 "PO-Revision-Date: 2021-03-20 16:55+0200\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -19,3 +19,15 @@ msgstr ""
 #: security_txt/apps.py:22
 msgid "Django security.txt"
 msgstr "Django security.txt"
+
+#: security_txt/models/acknowledgment.py:23
+msgid "link to page where security researchers are recognized"
+msgstr "link to page where security researchers are recognized"
+
+#: security_txt/models/acknowledgment.py:36
+msgid "acknowledgment"
+msgstr "acknowledgment"
+
+#: security_txt/models/acknowledgment.py:37
+msgid "acknowledgments"
+msgstr "acknowledgments"

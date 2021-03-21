@@ -32,16 +32,31 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [],
         "APP_DIRS": True,
-        "OPTIONS": {},
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ]
+        },
     }
-]  # type: List[Dict[str, Union[str, List[str], bool, Dict[str, str]]]]
+]  # type: List[Dict[str, Union[str, List[str], bool, Dict[str, Union[str, Dict[str, str], List[str]]]]]]  # noqa: E501
 
+
+MIDDLEWARE = [
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+]  # type: List[str]
 
 # add testing related apps
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
+    "django.contrib.messages",
     "django_nose",
     "security_txt",
 ]  # type: List[str]
