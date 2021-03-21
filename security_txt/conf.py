@@ -5,7 +5,7 @@
 
 
 from typing import List  # pylint: disable=W0611
-from datetime import date  # noqa: F401  # pylint: disable=W0611
+from datetime import datetime  # noqa: F401  # pylint: disable=W0611
 
 from appconf import AppConf
 from django.conf import settings
@@ -18,6 +18,8 @@ class DjangoSecurityTxtAppConf(AppConf):
     """
     Django security.txt settings.
     """
+
+    EXPIRES = getattr(settings, "SECURITY_TXT_EXPIRES", None)  # type: datetime
 
     class Meta:
         """

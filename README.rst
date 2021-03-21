@@ -43,6 +43,8 @@ Configuration
 
 Settings
 --------
+``SECURITY_TXT_EXPIRES``
+    Indicates the date and time after which the data contained in the "security.txt" file is considered stale and should not be used. Defaults to ``None``.
 
 Licensing
 ---------

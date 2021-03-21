@@ -2,6 +2,12 @@
 {# security_txt/templates/security_txt/security_txt.txt #}
 
 
-{% for acknowledgment in SECURITY_TXT_ACKNOWLEDGMENTS %}
-    Acknowledgments: {{ acknowledgment.url }}
+{% if SECURITY_TXT_ACKNOWLEDGMENTS %}
+    {% for acknowledgment in SECURITY_TXT_ACKNOWLEDGMENTS %}
+        Acknowledgments: {{ acknowledgment.url }}
+    {% endfor %}
+{% endif %}
+
+{% if SECURITY_TXT_EXPIRES %}
+    Expires: {{ SECURITY_TXT_EXPIRES }}
 {% endif %}

@@ -4,6 +4,7 @@
 # security_txt/views.py
 
 
+from datetime import datetime  # noqa: F401  # pylint: disable=W0611
 from typing import Dict, List, Union  # noqa: F401  # pylint: disable=W0611
 
 from django.shortcuts import render
@@ -11,6 +12,7 @@ from django.db.models import Manager
 from django.http import HttpResponse
 from django.http.request import HttpRequest
 
+from security_txt.conf import settings
 from security_txt.models.acknowledgment import Acknowledgment
 
 
@@ -29,7 +31,8 @@ def security_txt(request: HttpRequest) -> HttpResponse:
 
     context = {
         "SECURITY_TXT_ACKNOWLEDGMENTS": Acknowledgment.objects.all(),
-    }  # type: Dict[str, Union[Manager[Acknowledgment]]]
+        "SECURITY_TXT_EXPIRES": settings.SECURITY_TXT_EXPIRES,  # type: ignore
+    }  # type: Dict[str, Union[Manager[Acknowledgment], datetime]]
 
     return render(
         request=request,
