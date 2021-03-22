@@ -8,6 +8,12 @@
     {% endfor %}
 {% endif %}
 
+{% if SECURITY_TXT_CANONICALS %}
+    {% for canonical in SECURITY_TXT_CANONICALS %}
+        Canonical: {{ canonical.url }}
+    {% endfor %}
+{% endif %}
+
 {% if SECURITY_TXT_EXPIRES %}
     Expires: {{ SECURITY_TXT_EXPIRES }}
 {% endif %}

@@ -29,7 +29,7 @@ class AcknowledgmentModelTest(TestCase):
 
     def test___unicode__(self) -> None:
         """
-        __unicode__ method must return acknowledgment url.
+        __unicode__ method must return acknowledgments URL.
         """
 
         acknowledgment = (
@@ -42,7 +42,7 @@ class AcknowledgmentModelTest(TestCase):
 
     def test___repr__(self) -> None:
         """
-        __repr__ method must return acknowledgment url.
+        __repr__ method must return acknowledgments URL.
         """
 
         acknowledgment = (
@@ -53,7 +53,7 @@ class AcknowledgmentModelTest(TestCase):
 
     def test___str__(self) -> None:
         """
-        __str__ method must return acknowledgment url.
+        __str__ method must return acknowledgments URL.
         """
 
         acknowledgment = (

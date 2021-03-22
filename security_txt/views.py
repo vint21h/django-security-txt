@@ -13,6 +13,7 @@ from django.http import HttpResponse
 from django.http.request import HttpRequest
 
 from security_txt.conf import settings
+from security_txt.models.canonical import Canonical
 from security_txt.models.acknowledgment import Acknowledgment
 
 
@@ -31,8 +32,9 @@ def security_txt(request: HttpRequest) -> HttpResponse:
 
     context = {
         "SECURITY_TXT_ACKNOWLEDGMENTS": Acknowledgment.objects.all(),
+        "SECURITY_TXT_CANONICALS": Canonical.objects.all(),
         "SECURITY_TXT_EXPIRES": settings.SECURITY_TXT_EXPIRES,  # type: ignore
-    }  # type: Dict[str, Union[Manager[Acknowledgment], datetime]]
+    }  # type: Dict[str, Union[Manager[Acknowledgment], Manager[Canonical], datetime]]
 
     return render(
         request=request,

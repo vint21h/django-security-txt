@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # django-security-txt
-# security_txt/models/acknowledgment.py
+# security_txt/models/canonical.py
 
 
 from typing import List  # pylint: disable=W0611
@@ -11,17 +11,19 @@ from django.core.validators import URLValidator
 from django.utils.translation import gettext_lazy as _
 
 
-__all__ = ["Acknowledgment"]  # type: List[str]
+__all__ = ["Canonical"]  # type: List[str]
 
 
-class Acknowledgment(models.Model):
+class Canonical(models.Model):
     """
-    Acknowledgment model.
+    Canonical model.
     """
 
     url = models.URLField(
         verbose_name=_("URL"),
-        help_text=_("link to page where security researchers are recognized"),
+        help_text=_(
+            "indicates the canonical URIs where the security.txt file is located"
+        ),
         max_length=512,
         db_index=True,
         unique=True,
@@ -34,15 +36,15 @@ class Acknowledgment(models.Model):
         """
 
         app_label = "security_txt"  # type: str
-        verbose_name = _("acknowledgment")  # type: str
-        verbose_name_plural = _("acknowledgments")  # type: str
+        verbose_name = _("canonical")  # type: str
+        verbose_name_plural = _("canonicals")  # type: str
         ordering = ["url"]  # type: List[str]
 
     def __unicode__(self) -> str:
         """
         Model representation.
 
-        :return: acknowledgments URL
+        :return: canonical URL
         :rtype: str
         """
 
@@ -52,7 +54,7 @@ class Acknowledgment(models.Model):
         """
         Model representation.
 
-        :return: acknowledgments URL
+        :return: canonical URL
         :rtype: str
         """
 
@@ -62,7 +64,7 @@ class Acknowledgment(models.Model):
         """
         Model representation.
 
-        :return: acknowledgments URL
+        :return: canonical URL
         :rtype: str
         """
 

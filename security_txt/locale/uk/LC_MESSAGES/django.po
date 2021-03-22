@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: django-security-txt 0.0.0\n"
-"Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2021-03-21 16:14+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-22 06:06+0200\n"
 "PO-Revision-Date: 2021-03-20 16:55+0200\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -17,19 +17,34 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 :  n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-
 #: security_txt/apps.py:22
 msgid "Django security.txt"
 msgstr "Django security.txt"
 
-#: security_txt/models/acknowledgment.py:23
+#: security_txt/models/acknowledgment.py:23 security_txt/models/canonical.py:24
+msgid "URL"
+msgstr "URL"
+
+#: security_txt/models/acknowledgment.py:24
 msgid "link to page where security researchers are recognized"
 msgstr "посилання на сторінку із подяками дослідникам безпеки"
 
-#: security_txt/models/acknowledgment.py:36
+#: security_txt/models/acknowledgment.py:37
 msgid "acknowledgment"
 msgstr "подяка"
 
-#: security_txt/models/acknowledgment.py:37
+#: security_txt/models/acknowledgment.py:38
 msgid "acknowledgments"
 msgstr "подяки"
+
+#: security_txt/models/canonical.py:27
+msgid "indicates the canonical URIs where the security.txt file is located"
+msgstr "описує повний шлях до файлу security.txt"
+
+#: security_txt/models/canonical.py:41
+msgid "canonical"
+msgstr "повний шлях"
+
+#: security_txt/models/canonical.py:42
+msgid "canonicals"
+msgstr "повні шляхи"
