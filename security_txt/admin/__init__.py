@@ -6,5 +6,17 @@
 
 from typing import List  # pylint: disable=W0611
 
+from django.contrib import admin
 
-__all__ = []  # type: List[str]
+from security_txt.models.canonical import Canonical
+from security_txt.admin.canonical import CanonicalAdmin
+from security_txt.models.acknowledgment import Acknowledgment
+from security_txt.admin.acknowledgment import AcknowledgmentAdmin
+
+
+__all__ = ["AcknowledgmentAdmin", "CanonicalAdmin"]  # type: List[str]
+
+
+# registering admin custom classes
+admin.site.register(Acknowledgment, AcknowledgmentAdmin)
+admin.site.register(Canonical, CanonicalAdmin)
