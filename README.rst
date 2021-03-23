@@ -25,6 +25,7 @@ Configuration
     # settings.py
 
     INSTALLED_APPS += [
+        "phonenumber_field",
         "security_txt",
     ]
 

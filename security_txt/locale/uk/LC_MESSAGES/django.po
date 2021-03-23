@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-security-txt 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-22 06:06+0200\n"
+"POT-Creation-Date: 2021-03-23 02:15+0200\n"
 "PO-Revision-Date: 2021-03-20 16:55+0200\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -21,7 +21,16 @@ msgstr ""
 msgid "Django security.txt"
 msgstr "Django security.txt"
 
-#: security_txt/models/acknowledgment.py:23 security_txt/models/canonical.py:24
+#: security_txt/constants.py:24
+msgid "E-mail"
+msgstr "E-mail"
+
+#: security_txt/constants.py:25
+msgid "Phone"
+msgstr "Телефон"
+
+#: security_txt/constants.py:26 security_txt/models/acknowledgment.py:23
+#: security_txt/models/canonical.py:23 security_txt/models/contact.py:63
 msgid "URL"
 msgstr "URL"
 
@@ -37,14 +46,58 @@ msgstr "подяка"
 msgid "acknowledgments"
 msgstr "подяки"
 
-#: security_txt/models/canonical.py:27
+#: security_txt/models/canonical.py:25
 msgid "indicates the canonical URIs where the security.txt file is located"
 msgstr "описує повний шлях до файлу security.txt"
 
-#: security_txt/models/canonical.py:41
+#: security_txt/models/canonical.py:39
 msgid "canonical"
 msgstr "повний шлях"
 
-#: security_txt/models/canonical.py:42
+#: security_txt/models/canonical.py:40
 msgid "canonicals"
 msgstr "повні шляхи"
+
+#: security_txt/models/contact.py:39
+msgid "type"
+msgstr "тип"
+
+#: security_txt/models/contact.py:41
+msgid ""
+"contact type, possible variants: {', '.join(str(type) for type in "
+"dict(TYPE_CHOICES).values())}"
+msgstr ""
+"тип контакту, можливі варіанти: {', '.join(str(type) for type in "
+"dict(TYPE_CHOICES).values())}"
+
+#: security_txt/models/contact.py:48
+msgid "e-mail"
+msgstr "e-mail"
+
+#: security_txt/models/contact.py:49
+msgid "contact e-mail"
+msgstr "контактний e-mail"
+
+#: security_txt/models/contact.py:56
+msgid "phone"
+msgstr "телефон"
+
+#: security_txt/models/contact.py:57
+msgid "contact phone number"
+msgstr "номер контактного телефону"
+
+#: security_txt/models/contact.py:64
+msgid "contact page URL"
+msgstr "URL сторінки із контактами"
+
+#: security_txt/models/contact.py:78
+msgid "contact"
+msgstr "контакт"
+
+#: security_txt/models/contact.py:79
+msgid "contacts"
+msgstr "контакти"
+
+#: security_txt/models/contact.py:165
+msgid "Provide corresponding type field value"
+msgstr "Заповнить поле яке співвідноситься із типом"

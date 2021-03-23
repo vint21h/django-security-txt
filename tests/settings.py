@@ -7,6 +7,7 @@
 import sys
 import random
 import pathlib
+from datetime import datetime
 from typing import Dict, List, Union  # pylint: disable=W0611
 
 
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.messages",
     "django_nose",
+    "phonenumber_field",
     "security_txt",
 ]  # type: List[str]
 
@@ -80,4 +82,8 @@ NOSE_ARGS = [
 # configure urls
 ROOT_URLCONF = "security_txt.urls"  # type: str
 
+# phone number settings
+PHONENUMBER_DB_FORMAT = "INTERNATIONAL"
+
 # security.txt settings
+SECURITY_TXT_EXPIRES = datetime(year=1991, month=8, day=24)
