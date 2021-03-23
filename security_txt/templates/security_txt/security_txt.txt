@@ -2,15 +2,21 @@
 {# security_txt/templates/security_txt/security_txt.txt #}
 
 
-{% if SECURITY_TXT_ACKNOWLEDGMENTS %}
+{% if SECURITY_TXT_ACKNOWLEDGMENTS.exists %}
     {% for acknowledgment in SECURITY_TXT_ACKNOWLEDGMENTS %}
         Acknowledgments: {{ acknowledgment.url }}
     {% endfor %}
 {% endif %}
 
-{% if SECURITY_TXT_CANONICALS %}
+{% if SECURITY_TXT_CANONICALS.exists %}
     {% for canonical in SECURITY_TXT_CANONICALS %}
         Canonical: {{ canonical.url }}
+    {% endfor %}
+{% endif %}
+
+{% if SECURITY_TXT_CONTACTS.exists %}
+    {% for contact in SECURITY_TXT_CONTACTS %}
+        Contact: {{ contact }}
     {% endfor %}
 {% endif %}
 

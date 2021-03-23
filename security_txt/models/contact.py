@@ -119,7 +119,7 @@ class Contact(models.Model):
 
         return self.__unicode__()
 
-    def save(  # pylint: disable=W0221
+    def save(
         self,
         force_insert: bool = False,
         force_update: bool = False,
