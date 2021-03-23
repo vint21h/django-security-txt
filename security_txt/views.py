@@ -13,6 +13,7 @@ from django.http import HttpResponse
 from django.http.request import HttpRequest
 
 from security_txt.conf import settings
+from security_txt.models.hiring import Hiring
 from security_txt.models.contact import Contact
 from security_txt.models.canonical import Canonical
 from security_txt.models.acknowledgment import Acknowledgment
@@ -36,7 +37,8 @@ def security_txt(request: HttpRequest) -> HttpResponse:
         "SECURITY_TXT_CANONICALS": Canonical.objects.all(),
         "SECURITY_TXT_CONTACTS": Contact.objects.all(),
         "SECURITY_TXT_EXPIRES": settings.SECURITY_TXT_EXPIRES,
-    }  # type: Dict[str, Union[Manager[Acknowledgment], Manager[Canonical], Manager[Contact], datetime]]  # noqa: E501
+        "SECURITY_TXT_HIRING": Hiring.objects.all(),
+    }  # type: Dict[str, Union[Manager[Acknowledgment], Manager[Canonical], Manager[Contact], datetime, Manager[Hiring]]]  # noqa: E501
 
     return render(
         request=request,

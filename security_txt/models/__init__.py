@@ -6,9 +6,10 @@
 
 from typing import List  # pylint: disable=W0611
 
+from security_txt.models.hiring import Hiring
 from security_txt.models.contact import Contact
 from security_txt.models.canonical import Canonical
 from security_txt.models.acknowledgment import Acknowledgment
 
 
-__all__ = ["Acknowledgment", "Canonical", "Contact"]  # type: List[str]
+__all__ = ["Acknowledgment", "Canonical", "Contact", "Hiring"]  # type: List[str]

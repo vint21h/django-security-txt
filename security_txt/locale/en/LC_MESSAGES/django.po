@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: django-security-txt 0.0.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-23 02:15+0200\n"
+"Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
+"POT-Creation-Date: 2021-03-23 05:23+0200\n"
 "PO-Revision-Date: 2021-03-20 16:55+0200\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -14,6 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
 
 #: security_txt/apps.py:22
 msgid "Django security.txt"
@@ -29,6 +30,7 @@ msgstr "Phone"
 
 #: security_txt/constants.py:26 security_txt/models/acknowledgment.py:23
 #: security_txt/models/canonical.py:23 security_txt/models/contact.py:63
+#: security_txt/models/hiring.py:23
 msgid "URL"
 msgstr "URL"
 
@@ -64,7 +66,8 @@ msgstr "type"
 msgid ""
 "contact type, possible variants: {', '.join(str(type) for type in "
 "dict(TYPE_CHOICES).values())}"
-msgstr "contact type, possible variants: {', '.join(str(type) for type in "
+msgstr ""
+"contact type, possible variants: {', '.join(str(type) for type in "
 "dict(TYPE_CHOICES).values())}"
 
 #: security_txt/models/contact.py:48
@@ -98,3 +101,11 @@ msgstr "contacts"
 #: security_txt/models/contact.py:165
 msgid "Provide corresponding type field value"
 msgstr "Provide corresponding type field value"
+
+#: security_txt/models/hiring.py:24
+msgid "used for linking to the vendor's security-related job positions"
+msgstr "used for linking to the vendor's security-related job positions"
+
+#: security_txt/models/hiring.py:37 security_txt/models/hiring.py:38
+msgid "hiring"
+msgstr "hiring"
