@@ -32,7 +32,7 @@ msgstr "Телефон"
 
 #: security_txt/constants.py:26 security_txt/models/acknowledgment.py:23
 #: security_txt/models/canonical.py:23 security_txt/models/contact.py:63
-#: security_txt/models/hiring.py:23
+#: security_txt/models/hiring.py:23 security_txt/models/policy.py:23
 msgid "URL"
 msgstr "URL"
 
@@ -111,3 +111,16 @@ msgstr "використувуються для посилання на вака
 #: security_txt/models/hiring.py:37 security_txt/models/hiring.py:38
 msgid "hiring"
 msgstr "наймаємо"
+
+#: security_txt/models/policy.py:25
+msgid ""
+"indicates a link to where the vulnerability disclosure policy is located"
+msgstr "описує поилання до політики розголошення вразливості"
+
+#: security_txt/models/policy.py:39
+msgid "policy"
+msgstr "політика"
+
+#: security_txt/models/policy.py:40
+msgid "policies"
+msgstr "політики"

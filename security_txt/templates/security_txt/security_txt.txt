@@ -32,3 +32,10 @@
         Hiring: {{ hiring.url }}
     {% endfor %}
 {% endif %}
+
+{% if SECURITY_TXT_POLICIES.exists %}
+    # Our security policy
+    {% for policy in SECURITY_TXT_POLICIES %}
+        Policy: {{ policy.url }}
+    {% endfor %}
+{% endif %}
