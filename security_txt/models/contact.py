@@ -162,4 +162,8 @@ class Contact(models.Model):
             self.TYPE_PHONE: self.phone,
             self.TYPE_URL: self.url,
         }[self.type]:
-            raise ValidationError(message=_("Provide corresponding type field value"))
+            raise ValidationError(
+                message=_("Provide corresponding type field value: {type}"),
+                params={"type": self.type},
+                code="invalid",
+            )
