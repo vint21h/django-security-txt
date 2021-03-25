@@ -128,7 +128,7 @@ class ContactModelTest(TestCase):
 
         with self.assertRaises(
             expected_exception=ValidationError,
-            msg="Provide corresponding type field value",
+            msg="",
         ):
             contact = Contact(
                 type=Contact.TYPE_EMAIL, url="https://example.com"

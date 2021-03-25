@@ -15,7 +15,9 @@ from security_txt.admin.hiring import HiringAdmin
 from security_txt.admin.policy import PolicyAdmin
 from security_txt.admin.contact import ContactAdmin
 from security_txt.models.canonical import Canonical
+from security_txt.models.encryption import Encryption
 from security_txt.admin.canonical import CanonicalAdmin
+from security_txt.admin.encryption import EncryptionAdmin
 from security_txt.models.acknowledgment import Acknowledgment
 from security_txt.admin.acknowledgment import AcknowledgmentAdmin
 
@@ -26,6 +28,7 @@ __all__ = [
     "ContactAdmin",
     "HiringAdmin",
     "PolicyAdmin",
+    "EncryptionAdmin",
 ]  # type: List[str]
 
 
@@ -35,3 +38,4 @@ admin.site.register(Canonical, CanonicalAdmin)
 admin.site.register(Contact, ContactAdmin)
 admin.site.register(Hiring, HiringAdmin)
 admin.site.register(Policy, PolicyAdmin)
+admin.site.register(Encryption, EncryptionAdmin)

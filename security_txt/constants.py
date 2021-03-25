@@ -41,5 +41,5 @@ ENCRYPTION_TYPE_CHOICES = (
     (ENCRYPTION_TYPE_FINGERPRINT, _("OpenPGP key fingerprint")),
 )
 
-ENCRYPTION_DNS_REGEX = r"(^dns:)([0-9 A-F a-f]{16,64})(._openpgpkey.)((?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9])(\?type=OPENPGPKEY$)"  # type: str  # noqa: E501
-ENCRYPTION_FINGERPRINT_REGEX = r"(^openpgp4fpr:)([0-9 A-F a-f]{16,64}$)"  # type: str
+ENCRYPTION_DNS_REGEX = r"([0-9 A-F a-f]{16,64})(._openpgpkey.)((?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9])(\?type=OPENPGPKEY$)"  # type: str  # noqa: E501
+ENCRYPTION_FINGERPRINT_REGEX = r"([0-9 A-F a-f]{16,64}$)"  # type: str

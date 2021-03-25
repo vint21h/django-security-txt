@@ -1,39 +1,40 @@
 # -*- coding: utf-8 -*-
 
 # django-security-txt
-# security_txt/models/contact.py
+# security_txt/models/encryption.py
 
 
 from typing import List, Iterable, Optional  # pylint: disable=W0611
 
 from django.db import models
-from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-from phonenumber_field.modelfields import PhoneNumberField
+from django.core.validators import URLValidator, RegexValidator
 
 from security_txt.constants import (
-    CONTACT_TYPE_URL,
-    CONTACT_TYPE_EMAIL,
-    CONTACT_TYPE_PHONE,
-    CONTACT_TYPE_CHOICES,
+    ENCRYPTION_TYPE_DNS,
+    ENCRYPTION_TYPE_URL,
+    ENCRYPTION_DNS_REGEX,
+    ENCRYPTION_TYPE_CHOICES,
+    ENCRYPTION_TYPE_FINGERPRINT,
+    ENCRYPTION_FINGERPRINT_REGEX,
 )
 
 
-__all__ = ["Contact"]  # type: List[str]
+__all__ = ["Encryption"]  # type: List[str]
 
 
-class Contact(models.Model):
+class Encryption(models.Model):
     """
-    Contact model.
+    Encryption model.
     """
 
-    TYPE_EMAIL, TYPE_PHONE, TYPE_URL = (
-        CONTACT_TYPE_EMAIL,
-        CONTACT_TYPE_PHONE,
-        CONTACT_TYPE_URL,
+    TYPE_URL, TYPE_DNS, TYPE_FINGERPRINT = (
+        ENCRYPTION_TYPE_URL,
+        ENCRYPTION_TYPE_DNS,
+        ENCRYPTION_TYPE_FINGERPRINT,
     )
-    TYPE_CHOICES = CONTACT_TYPE_CHOICES
+    TYPE_CHOICES = ENCRYPTION_TYPE_CHOICES
 
     type = models.PositiveIntegerField(
         verbose_name=_("type"),
@@ -42,31 +43,46 @@ class Contact(models.Model):
         ),
         db_index=True,
         choices=TYPE_CHOICES,
-        default=TYPE_EMAIL,
-    )
-    email = models.EmailField(
-        verbose_name=_("e-mail"),
-        help_text=_("contact e-mail"),
-        max_length=512,
-        db_index=True,
-        blank=True,
-        null=True,
-    )
-    phone = PhoneNumberField(
-        verbose_name=_("phone"),
-        help_text=_("contact phone number"),
-        db_index=True,
-        blank=True,
-        null=True,
+        default=TYPE_URL,
     )
     url = models.URLField(
         verbose_name=_("URL"),
-        help_text=_("contact page URL"),
+        help_text=_("URL to public OpenPGP key"),
         max_length=512,
         db_index=True,
         blank=True,
         null=True,
         validators=[URLValidator(schemes=["https"])],
+    )
+    dns = models.CharField(
+        verbose_name=_("DNS record"),
+        help_text=_("OPENPGPKEY DNS record"),
+        max_length=512,
+        db_index=True,
+        blank=True,
+        null=True,
+        validators=[
+            RegexValidator(
+                regex=ENCRYPTION_DNS_REGEX,
+                message=_(
+                    "Invalid OPENPGPKEY DNS record, for more informations see: https://tools.ietf.org/html/rfc7929"  # noqa: E501
+                ),
+            )
+        ],
+    )
+    fingerprint = models.CharField(
+        verbose_name=_("key fingerprint"),
+        help_text=_("OpenPGP key fingerprint"),
+        max_length=512,
+        db_index=True,
+        blank=True,
+        null=True,
+        validators=[
+            RegexValidator(
+                regex=ENCRYPTION_FINGERPRINT_REGEX,
+                message=_("Invalid OpenPGP key fingerprint"),
+            )
+        ],
     )
 
     class Meta:
@@ -75,14 +91,14 @@ class Contact(models.Model):
         """
 
         app_label = "security_txt"  # type: str
-        verbose_name = _("contact")  # type: str
-        verbose_name_plural = _("contacts")  # type: str
+        verbose_name = _("encryption")  # type: str
+        verbose_name_plural = _("encryption")  # type: str
         ordering = ["type"]  # type: List[str]
         unique_together = [
             "type",
-            "email",
-            "phone",
             "url",
+            "dns",
+            "fingerprint",
         ]  # type: List[str]
 
     def __unicode__(self) -> str:
@@ -94,9 +110,9 @@ class Contact(models.Model):
         """
 
         return {  # type: ignore
-            self.TYPE_EMAIL: f"mailto:{self.email}",
-            self.TYPE_PHONE: f"tel:{self.phone}",
             self.TYPE_URL: self.url,
+            self.TYPE_DNS: f"dns:{self.dns}",
+            self.TYPE_FINGERPRINT: f"openpgp4fpr:{self.fingerprint}",
         }[self.type]
 
     def __str__(self) -> str:
@@ -143,7 +159,7 @@ class Contact(models.Model):
 
         self.clean()
 
-        return super(Contact, self).save(
+        return super(Encryption, self).save(
             force_insert=force_insert,
             force_update=force_update,
             using=using,
@@ -158,9 +174,9 @@ class Contact(models.Model):
         """
 
         if not {
-            self.TYPE_EMAIL: self.email,
-            self.TYPE_PHONE: self.phone,
             self.TYPE_URL: self.url,
+            self.TYPE_DNS: self.dns,
+            self.TYPE_FINGERPRINT: self.fingerprint,
         }[self.type]:
             raise ValidationError(
                 message=_(
