@@ -86,4 +86,5 @@ ROOT_URLCONF = "security_txt.urls"  # type: str
 PHONENUMBER_DB_FORMAT = "INTERNATIONAL"
 
 # security.txt settings
-SECURITY_TXT_EXPIRES = datetime(year=1991, month=8, day=24)
+SECURITY_TXT_EXPIRES = datetime(year=1991, month=8, day=24)  # type: datetime
+SECURITY_TXT_PREFERRED_LANGUAGES = ["en"]  # type: List[str]

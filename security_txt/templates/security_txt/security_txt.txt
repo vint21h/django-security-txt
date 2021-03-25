@@ -39,3 +39,7 @@
         Policy: {{ policy.url }}
     {% endfor %}
 {% endif %}
+
+{% if SECURITY_TXT_PREFERRED_LANGUAGES %}
+    Preferred-Languages: {% for language in SECURITY_TXT_PREFERRED_LANGUAGES %}{% if not forloop.last %}, {% endif %}{% endfor %}
+{% endif %}

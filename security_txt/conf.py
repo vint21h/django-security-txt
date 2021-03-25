@@ -20,6 +20,9 @@ class DjangoSecurityTxtAppConf(AppConf):
     """
 
     EXPIRES = getattr(settings, "SECURITY_TXT_EXPIRES", None)  # type: datetime
+    PREFERRED_LANGUAGES = getattr(
+        settings, "SECURITY_TXT_PREFERRED_LANGUAGES", None
+    )  # type: List[str]
 
     class Meta:
         """
