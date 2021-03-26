@@ -48,5 +48,5 @@
 {% endif %}
 
 {% if SECURITY_TXT_PREFERRED_LANGUAGES %}
-    Preferred-Languages: {% for language in SECURITY_TXT_PREFERRED_LANGUAGES %}{% if not forloop.last %}, {% endif %}{% endfor %}
+    Preferred-Languages: {% for language in SECURITY_TXT_PREFERRED_LANGUAGES %}{{ language }}{% if not forloop.last %}, {% endif %}{% endfor %}
 {% endif %}

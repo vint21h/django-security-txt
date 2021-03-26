@@ -25,7 +25,7 @@ class CanonicalModelTest(TestCase):
         Set up non-modified objects used by all test methods.
         """
 
-        Canonical.objects.create(url="https://example.com/")
+        Canonical.objects.create(url="https://example.com/.well-known/security.txt")
 
     def test___unicode__(self) -> None:
         """
@@ -35,7 +35,8 @@ class CanonicalModelTest(TestCase):
         canonical = Canonical.objects.first()  # type: Optional[Canonical]
 
         self.assertEqual(
-            first=canonical.__unicode__(), second="https://example.com/"  # type: ignore
+            first=canonical.__unicode__(),  # type: ignore
+            second="https://example.com/.well-known/security.txt",
         )
 
     def test___repr__(self) -> None:
@@ -45,7 +46,10 @@ class CanonicalModelTest(TestCase):
 
         canonical = Canonical.objects.first()  # type: Optional[Canonical]
 
-        self.assertEqual(first=canonical.__repr__(), second="https://example.com/")
+        self.assertEqual(
+            first=canonical.__repr__(),
+            second="https://example.com/.well-known/security.txt",
+        )
 
     def test___str__(self) -> None:
         """
@@ -54,4 +58,7 @@ class CanonicalModelTest(TestCase):
 
         canonical = Canonical.objects.first()  # type: Optional[Canonical]
 
-        self.assertEqual(first=canonical.__str__(), second="https://example.com/")
+        self.assertEqual(
+            first=canonical.__str__(),
+            second="https://example.com/.well-known/security.txt",
+        )

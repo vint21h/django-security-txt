@@ -45,9 +45,9 @@ TEMPLATES = [
 
 
 MIDDLEWARE = [
+    "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
 ]  # type: List[str]
@@ -86,5 +86,7 @@ ROOT_URLCONF = "security_txt.urls"  # type: str
 PHONENUMBER_DB_FORMAT = "INTERNATIONAL"
 
 # security.txt settings
-SECURITY_TXT_EXPIRES = datetime(year=1991, month=8, day=24)  # type: datetime
-SECURITY_TXT_PREFERRED_LANGUAGES = ["en"]  # type: List[str]
+SECURITY_TXT_EXPIRES = datetime(
+    year=1997, month=8, day=29, hour=2, minute=14
+)  # type: datetime
+SECURITY_TXT_PREFERRED_LANGUAGES = ["en", "uk"]  # type: List[str]
