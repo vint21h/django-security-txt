@@ -48,6 +48,24 @@ Settings
     Indicates the date and time after which the data contained in the "security.txt" file is considered stale and should not be used. Defaults to ``None``.
 ``SECURITY_TXT_PREFERRED_LANGUAGES``
     Used to indicate a set of natural languages that are preferred when submitting security reports. Defaults to ``None``.
+``SECURITY_TXT_SIGN``
+    Sign "security.txt" using PGP. Defaults to ``False``.
+``SECURITY_TXT_SIGN_KEY``
+    Path to PGP key. Defaults to ``""``.
+
+Advanced features
+-----------------
+If you want to sign your "security.txt":
+
+* Install ``django-security-txt`` with additional dependencies: ``$ pip install django-security-txt[pgp]``.
+* Configure:
+
+.. code-block:: python
+
+    # settings.py
+
+    SECURITY_TXT_SIGN = True
+    SECURITY_TXT_SIGN_KEY = "/path/to/key.asc"
 
 Licensing
 ---------
