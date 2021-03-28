@@ -1,0 +1,52 @@
+{# django-security-txt #}
+{# security_txt/templates/security_txt/templatetags/security_txt.txt #}
+
+
+{% if SECURITY_TXT_ACKNOWLEDGMENTS.exists %}
+    # Our security acknowledgments page
+    {% for acknowledgment in SECURITY_TXT_ACKNOWLEDGMENTS %}
+        Acknowledgments: {{ acknowledgment.url }}
+    {% endfor %}
+{% endif %}
+
+{% if SECURITY_TXT_CANONICALS.exists %}
+    # Canonical URI
+    {% for canonical in SECURITY_TXT_CANONICALS %}
+        Canonical: {{ canonical.url }}
+    {% endfor %}
+{% endif %}
+
+{% if SECURITY_TXT_CONTACTS.exists %}
+    # Our security address
+    {% for contact in SECURITY_TXT_CONTACTS %}
+        Contact: {{ contact }}
+    {% endfor %}
+{% endif %}
+
+{% if SECURITY_TXT_ENCRYPTION.exists %}
+    # Our OpenPGP key
+    {% for encryption in SECURITY_TXT_ENCRYPTION %}
+        Encryption: {{ encryption }}
+    {% endfor %}
+{% endif %}
+
+{% if SECURITY_TXT_EXPIRES %}
+    Expires: {{ SECURITY_TXT_EXPIRES }}
+{% endif %}
+
+{% if SECURITY_TXT_HIRING.exists %}
+    {% for hiring in SECURITY_TXT_HIRING %}
+        Hiring: {{ hiring.url }}
+    {% endfor %}
+{% endif %}
+
+{% if SECURITY_TXT_POLICIES.exists %}
+    # Our security policy
+    {% for policy in SECURITY_TXT_POLICIES %}
+        Policy: {{ policy.url }}
+    {% endfor %}
+{% endif %}
+
+{% if SECURITY_TXT_PREFERRED_LANGUAGES %}
+    Preferred-Languages: {% for language in SECURITY_TXT_PREFERRED_LANGUAGES %}{{ language }}{% if not forloop.last %}, {% endif %}{% endfor %}
+{% endif %}

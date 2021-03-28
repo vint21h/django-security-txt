@@ -6,3 +6,4 @@ prune tests*
 recursive-include security_txt *.po
 recursive-include security_txt *.mo
 include security_txt/templates/security_txt/security_txt.txt
+include security_txt/templates/security_txt/templatetags/security_txt.txt

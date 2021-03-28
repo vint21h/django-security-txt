@@ -65,7 +65,7 @@ class Encryption(models.Model):
             RegexValidator(
                 regex=ENCRYPTION_DNS_REGEX,
                 message=_(
-                    "Invalid OPENPGPKEY DNS record, for more informations see: https://tools.ietf.org/html/rfc7929"  # noqa: E501
+                    "Invalid OPENPGPKEY DNS record, more information: https://tools.ietf.org/html/rfc7929"  # noqa: E501
                 ),
             )
         ],

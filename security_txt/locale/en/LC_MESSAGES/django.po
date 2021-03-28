@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: django-security-txt 0.0.0\n"
-"Report-Msgid-Bugs-To:Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2021-03-25 04:45+0200\n"
+"Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
+"POT-Creation-Date: 2021-03-29 00:12+0300\n"
 "PO-Revision-Date: 2021-03-20 16:55+0200\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -20,19 +20,28 @@ msgstr ""
 msgid "Django security.txt"
 msgstr "Django security.txt"
 
-#: security_txt/constants.py:24
+#: security_txt/constants.py:30
 msgid "E-mail"
 msgstr "E-mail"
 
-#: security_txt/constants.py:25
+#: security_txt/constants.py:31
 msgid "Phone"
 msgstr "Phone"
 
-#: security_txt/constants.py:26 security_txt/models/acknowledgment.py:23
-#: security_txt/models/canonical.py:23 security_txt/models/contact.py:63
+#: security_txt/constants.py:32 security_txt/constants.py:39
+#: security_txt/models/acknowledgment.py:23 security_txt/models/canonical.py:23
+#: security_txt/models/contact.py:63 security_txt/models/encryption.py:49
 #: security_txt/models/hiring.py:23 security_txt/models/policy.py:23
 msgid "URL"
 msgstr "URL"
+
+#: security_txt/constants.py:40 security_txt/models/encryption.py:59
+msgid "OPENPGPKEY DNS record"
+msgstr "OPENPGPKEY DNS record"
+
+#: security_txt/constants.py:41 security_txt/models/encryption.py:75
+msgid "OpenPGP key fingerprint"
+msgstr "OpenPGP key fingerprint"
 
 #: security_txt/models/acknowledgment.py:24
 msgid "link to page where security researchers are recognized"
@@ -58,11 +67,11 @@ msgstr "canonical"
 msgid "canonicals"
 msgstr "canonicals"
 
-#: security_txt/models/contact.py:39
+#: security_txt/models/contact.py:39 security_txt/models/encryption.py:40
 msgid "type"
 msgstr "type"
 
-#: security_txt/models/contact.py:41
+#: security_txt/models/contact.py:41 security_txt/models/encryption.py:42
 msgid ""
 "contact type, possible variants: {', '.join(str(type) for type in "
 "dict(TYPE_CHOICES).values())}"
@@ -98,9 +107,37 @@ msgstr "contact"
 msgid "contacts"
 msgstr "contacts"
 
-#: security_txt/models/contact.py:165
-msgid "Provide corresponding type field value"
-msgstr "Provide corresponding type field value"
+#: security_txt/models/contact.py:167 security_txt/models/encryption.py:183
+msgid "Provide corresponding type field value: {self.get_type_display()}"
+msgstr "Provide corresponding type field value: {self.get_type_display()}"
+
+#: security_txt/models/encryption.py:50
+msgid "URL to public OpenPGP key"
+msgstr "URL to public OpenPGP key"
+
+#: security_txt/models/encryption.py:58
+msgid "DNS record"
+msgstr "DNS record"
+
+#: security_txt/models/encryption.py:68
+msgid ""
+"Invalid OPENPGPKEY DNS record, more information: https://tools.ietf.org/html/"
+"rfc7929"
+msgstr ""
+"Invalid OPENPGPKEY DNS record, more information: https://tools.ietf.org/html/"
+"rfc7929"
+
+#: security_txt/models/encryption.py:74
+msgid "key fingerprint"
+msgstr "key fingerprint"
+
+#: security_txt/models/encryption.py:83
+msgid "Invalid OpenPGP key fingerprint"
+msgstr "Invalid OpenPGP key fingerprint"
+
+#: security_txt/models/encryption.py:94 security_txt/models/encryption.py:95
+msgid "encryption"
+msgstr "encryption"
 
 #: security_txt/models/hiring.py:24
 msgid "used for linking to the vendor's security-related job positions"

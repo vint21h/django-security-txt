@@ -7,26 +7,25 @@
 from typing import List  # pylint: disable=W0611
 
 from django.test import TestCase
-from django.shortcuts import resolve_url
+from django.template import Context, Template
 from django.test.utils import override_settings
-from django.http import HttpRequest, HttpResponse
 from django.utils.translation import override as override_translation
 
-from security_txt.views import security_txt
 from security_txt.models.hiring import Hiring
 from security_txt.models.policy import Policy
 from security_txt.models.contact import Contact
 from security_txt.models.canonical import Canonical
 from security_txt.models.encryption import Encryption
 from security_txt.models.acknowledgment import Acknowledgment
+from security_txt.templatetags.security_txt_tags import security_txt
 
 
-__all__ = ["SecurityTxtViewTest"]  # type: List[str]
+__all__ = ["SecurityTxtTemplatetagTest"]  # type: List[str]
 
 
-class SecurityTxtViewTest(TestCase):
+class SecurityTxtTemplatetagTest(TestCase):
     """
-    security.txt view tests.
+    security.txt templatetag tests.
     """
 
     @classmethod
@@ -58,28 +57,12 @@ class SecurityTxtViewTest(TestCase):
         Test view returning response.
         """
 
-        request = HttpRequest()  # type: HttpRequest
-
-        self.assertIsInstance(obj=security_txt(request=request), cls=HttpResponse)
-
-    @override_translation("en")
-    def test_security_txt__render__template_used(self) -> None:
-        """
-        Test view right template usage.
-        """
-
-        result = self.client.get(
-            path=resolve_url(to="security-txt")
-        )  # type: HttpResponse
-
-        self.assertTemplateUsed(
-            response=result, template_name="security_txt/security_txt.txt"
-        )
+        self.assertIsInstance(obj=security_txt(), cls=dict)
 
     @override_translation("en")
     def test_security_txt__render(self) -> None:
         """
-        Test view rendering result.
+        Test templatetag rendering result.
         """
 
         expected = """
@@ -102,43 +85,12 @@ class SecurityTxtViewTest(TestCase):
         Policy: https://example.com/
         Preferred-Languages: en, uk
         """  # type: str  # noqa: E501
-        result = self.client.get(
-            path=resolve_url(to="security-txt")
-        )  # type: HttpResponse
+        template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"
+        )  # type: Template
+        result = template.render(context=Context())  # type: str
 
-        self.assertIsNotNone(
-            obj=result.context.get("SECURITY_TXT_ACKNOWLEDGMENTS")
-            if result.context
-            else None
-        )
-        self.assertIsNotNone(
-            obj=result.context.get("SECURITY_TXT_CANONICALS")
-            if result.context
-            else None
-        )
-        self.assertIsNotNone(
-            obj=result.context.get("SECURITY_TXT_CONTACTS") if result.context else None
-        )
-        self.assertIsNotNone(
-            obj=result.context.get("SECURITY_TXT_ENCRYPTION")
-            if result.context
-            else None
-        )
-        self.assertIsNotNone(
-            obj=result.context.get("SECURITY_TXT_EXPIRES") if result.context else None
-        )
-        self.assertIsNotNone(
-            obj=result.context.get("SECURITY_TXT_HIRING") if result.context else None
-        )
-        self.assertIsNotNone(
-            obj=result.context.get("SECURITY_TXT_POLICIES") if result.context else None
-        )
-        self.assertIsNotNone(
-            obj=result.context.get("SECURITY_TXT_PREFERRED_LANGUAGES")
-            if result.context
-            else None
-        )
-        self.assertHTMLEqual(html1=result.content.decode(), html2=expected)
+        self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     @override_settings(SECURITY_TXT_EXPIRES=None)
@@ -166,14 +118,12 @@ class SecurityTxtViewTest(TestCase):
         Policy: https://example.com/
         Preferred-Languages: en, uk
         """  # type: str  # noqa: E501
-        result = self.client.get(
-            path=resolve_url(to="security-txt")
-        )  # type: HttpResponse
+        template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"
+        )  # type: Template
+        result = template.render(context=Context())  # type: str
 
-        self.assertIsNone(
-            obj=result.context.get("SECURITY_TXT_EXPIRES") if result.context else None
-        )
-        self.assertHTMLEqual(html1=result.content.decode(), html2=expected)
+        self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     @override_settings(SECURITY_TXT_PREFERRED_LANGUAGES=None)
@@ -201,16 +151,12 @@ class SecurityTxtViewTest(TestCase):
         # Our security policy
         Policy: https://example.com/
         """  # type: str  # noqa: E501
-        result = self.client.get(
-            path=resolve_url(to="security-txt")
-        )  # type: HttpResponse
+        template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"
+        )  # type: Template
+        result = template.render(context=Context())  # type: str
 
-        self.assertIsNone(
-            obj=result.context.get("SECURITY_TXT_PREFERRED_LANGUAGES")
-            if result.context
-            else None
-        )
-        self.assertHTMLEqual(html1=result.content.decode(), html2=expected)
+        self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     def test_security_txt__render__without_acknowledgments(self) -> None:
@@ -238,19 +184,12 @@ class SecurityTxtViewTest(TestCase):
         Policy: https://example.com/
         Preferred-Languages: en, uk
         """  # type: str  # noqa: E501
-        result = self.client.get(
-            path=resolve_url(to="security-txt")
-        )  # type: HttpResponse
+        template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"
+        )  # type: Template
+        result = template.render(context=Context())  # type: str
 
-        self.assertQuerysetEqual(
-            qs=result.context.get(  # type: ignore
-                "SECURITY_TXT_ACKNOWLEDGMENTS", Acknowledgment.objects.none()
-            )
-            if result.context
-            else Acknowledgment.objects.none(),
-            values=Acknowledgment.objects.none(),
-        )
-        self.assertHTMLEqual(html1=result.content.decode(), html2=expected)
+        self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     def test_security_txt__render__without_canonicals(self) -> None:
@@ -277,19 +216,12 @@ class SecurityTxtViewTest(TestCase):
         Policy: https://example.com/
         Preferred-Languages: en, uk
         """  # type: str  # noqa: E501
-        result = self.client.get(
-            path=resolve_url(to="security-txt")
-        )  # type: HttpResponse
+        template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"
+        )  # type: Template
+        result = template.render(context=Context())  # type: str
 
-        self.assertQuerysetEqual(
-            qs=result.context.get(  # type: ignore
-                "SECURITY_TXT_CANONICALS", Canonical.objects.none()
-            )
-            if result.context
-            else Canonical.objects.none(),
-            values=Canonical.objects.none(),
-        )
-        self.assertHTMLEqual(html1=result.content.decode(), html2=expected)
+        self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     def test_security_txt__render__without_contacts(self) -> None:
@@ -315,19 +247,12 @@ class SecurityTxtViewTest(TestCase):
         Policy: https://example.com/
         Preferred-Languages: en, uk
         """  # type: str  # noqa: E501
-        result = self.client.get(
-            path=resolve_url(to="security-txt")
-        )  # type: HttpResponse
+        template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"
+        )  # type: Template
+        result = template.render(context=Context())  # type: str
 
-        self.assertQuerysetEqual(
-            qs=result.context.get(  # type: ignore
-                "SECURITY_TXT_CONTACTS", Contact.objects.none()
-            )
-            if result.context
-            else Contact.objects.none(),
-            values=Contact.objects.none(),
-        )
-        self.assertHTMLEqual(html1=result.content.decode(), html2=expected)
+        self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     def test_security_txt__render__without_encryption(self) -> None:
@@ -353,19 +278,12 @@ class SecurityTxtViewTest(TestCase):
         Policy: https://example.com/
         Preferred-Languages: en, uk
         """  # type: str  # noqa: E501
-        result = self.client.get(
-            path=resolve_url(to="security-txt")
-        )  # type: HttpResponse
+        template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"
+        )  # type: Template
+        result = template.render(context=Context())  # type: str
 
-        self.assertQuerysetEqual(
-            qs=result.context.get(  # type: ignore
-                "SECURITY_TXT_ENCRYPTION", Encryption.objects.none()
-            )
-            if result.context
-            else Encryption.objects.none(),
-            values=Encryption.objects.none(),
-        )
-        self.assertHTMLEqual(html1=result.content.decode(), html2=expected)
+        self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     def test_security_txt__render__without_hiring(self) -> None:
@@ -394,19 +312,12 @@ class SecurityTxtViewTest(TestCase):
         Policy: https://example.com/
         Preferred-Languages: en, uk
         """  # type: str  # noqa: E501
-        result = self.client.get(
-            path=resolve_url(to="security-txt")
-        )  # type: HttpResponse
+        template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"
+        )  # type: Template
+        result = template.render(context=Context())  # type: str
 
-        self.assertQuerysetEqual(
-            qs=result.context.get(  # type: ignore
-                "SECURITY_TXT_HIRING", Hiring.objects.none()
-            )
-            if result.context
-            else Hiring.objects.none(),
-            values=Hiring.objects.none(),
-        )
-        self.assertHTMLEqual(html1=result.content.decode(), html2=expected)
+        self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     def test_security_txt__render__without_policies(self) -> None:
@@ -434,16 +345,9 @@ class SecurityTxtViewTest(TestCase):
         Hiring: https://example.com/
         Preferred-Languages: en, uk
         """  # type: str  # noqa: E501
-        result = self.client.get(
-            path=resolve_url(to="security-txt")
-        )  # type: HttpResponse
+        template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"
+        )  # type: Template
+        result = template.render(context=Context())  # type: str
 
-        self.assertQuerysetEqual(
-            qs=result.context.get(  # type: ignore
-                "SECURITY_TXT_POLICIES", Policy.objects.none()
-            )
-            if result.context
-            else Policy.objects.none(),
-            values=Policy.objects.none(),
-        )
-        self.assertHTMLEqual(html1=result.content.decode(), html2=expected)
+        self.assertHTMLEqual(html1=result, html2=expected)
