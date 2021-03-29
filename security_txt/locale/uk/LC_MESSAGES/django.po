@@ -4,7 +4,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: django-security-txt 0.0.0\n"
+"Project-Id-Version: django-security-txt 0.1.0\n"
 "Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "POT-Creation-Date: 2021-03-29 18:46+0300\n"
 "PO-Revision-Date: 2021-03-20 16:55+0200\n"
