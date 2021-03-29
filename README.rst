@@ -50,7 +50,7 @@ Settings
     Used to indicate a set of natural languages that are preferred when submitting security reports. Defaults to ``None``.
 ``SECURITY_TXT_SIGN``
     Sign "security.txt" using PGP. Defaults to ``False``.
-``SECURITY_TXT_SIGN_KEY``
+``SECURITY_TXT_SIGNING_KEY``
     Path to PGP key. Defaults to ``""``.
 
 Advanced features
@@ -65,7 +65,7 @@ If you want to sign your "security.txt":
     # settings.py
 
     SECURITY_TXT_SIGN = True
-    SECURITY_TXT_SIGN_KEY = "/path/to/key.asc"
+    SECURITY_TXT_SIGNING_KEY = "/path/to/key.asc"
 
 Licensing
 ---------

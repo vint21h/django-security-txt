@@ -24,7 +24,7 @@ class DjangoSecurityTxtAppConf(AppConf):
         settings, "SECURITY_TXT_PREFERRED_LANGUAGES", None
     )  # type: List[str]
     SIGN = getattr(settings, "SECURITY_TXT_SIGN", False)  # type: bool
-    SIGN_KEY = getattr(settings, "SECURITY_TXT_SIGN_KEY", "")  # type: str
+    SIGN_KEY = getattr(settings, "SECURITY_TXT_SIGNING_KEY", "")  # type: str
 
     class Meta:
         """

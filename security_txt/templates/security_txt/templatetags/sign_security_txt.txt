@@ -1,0 +1,8 @@
+{# django-security-txt #}
+{# security_txt/templates/security_txt/templatetags/sign_security_txt.txt #}
+
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+{{ DATA }}
+{{ SIGNATURE }}

@@ -4,12 +4,22 @@
 # tests/test_views.py
 
 
+from pathlib import Path
+from tempfile import NamedTemporaryFile
 from typing import List  # pylint: disable=W0611
 
+from pgpy import PGPUID, PGPKey
 from django.test import TestCase
 from django.template import Context, Template
 from django.test.utils import override_settings
 from django.utils.translation import override as override_translation
+from pgpy.constants import (
+    KeyFlags,
+    HashAlgorithm,
+    PubKeyAlgorithm,
+    CompressionAlgorithm,
+    SymmetricKeyAlgorithm,
+)
 
 from security_txt.models.hiring import Hiring
 from security_txt.models.policy import Policy
@@ -17,7 +27,7 @@ from security_txt.models.contact import Contact
 from security_txt.models.canonical import Canonical
 from security_txt.models.encryption import Encryption
 from security_txt.models.acknowledgment import Acknowledgment
-from security_txt.templatetags.security_txt_tags import security_txt
+from security_txt.templatetags.security_txt_tags import security_txt, sign_security_txt
 
 
 __all__ = ["SecurityTxtTemplatetagTest"]  # type: List[str]
@@ -54,7 +64,7 @@ class SecurityTxtTemplatetagTest(TestCase):
 
     def test_security_txt__return_response(self) -> None:
         """
-        Test view returning response.
+        Test templatetag returning response.
         """
 
         self.assertIsInstance(obj=security_txt(), cls=dict)
@@ -351,3 +361,69 @@ class SecurityTxtTemplatetagTest(TestCase):
         result = template.render(context=Context())  # type: str
 
         self.assertHTMLEqual(html1=result, html2=expected)
+
+
+class SignSecurityTxtTemplatetagTest(TestCase):
+    """
+    Sign security.txt templatetag tests.
+    """
+
+    KEY_PATH = NamedTemporaryFile().name
+
+    @override_translation("en")
+    @override_settings(SECURITY_TXT_SIGN=True, SECURITY_TXT_SIGNING_KEY=KEY_PATH)
+    def test_sign_security_txt__return_response(self) -> None:
+        """
+        Test templatetag returning response.
+        """
+
+        self.assertIsInstance(obj=sign_security_txt(data=""), cls=dict)
+
+    @override_translation("en")
+    @override_settings(SECURITY_TXT_SIGN=True, SECURITY_TXT_SIGNING_KEY=KEY_PATH)
+    def test_sign_security_txt__render(self) -> None:
+        """
+        Test templatetag rendering result.
+        """
+
+        expected = """
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+-----BEGIN PGP SIGNATURE-----
+        """
+        template = Template(
+            "{% load security_txt_tags %}"
+            "{% with security_txt as DATA %}{% sign_security_txt DATA %}{% endwith %}"
+        )  # type: Template  # noqa: E501
+        key = PGPKey.new(PubKeyAlgorithm.RSAEncryptOrSign, 4096)
+        uid = PGPUID.new(pn="TEST", comment="Test", email="test@example.com")
+        key.add_uid(
+            uid,
+            usage={
+                KeyFlags.Sign,
+                KeyFlags.EncryptCommunications,
+                KeyFlags.EncryptStorage,
+            },
+            hashes=[
+                HashAlgorithm.SHA256,
+                HashAlgorithm.SHA384,
+                HashAlgorithm.SHA512,
+                HashAlgorithm.SHA224,
+            ],
+            ciphers=[
+                SymmetricKeyAlgorithm.AES256,
+                SymmetricKeyAlgorithm.AES192,
+                SymmetricKeyAlgorithm.AES128,
+            ],
+            compression=[
+                CompressionAlgorithm.ZLIB,
+                CompressionAlgorithm.BZ2,
+                CompressionAlgorithm.ZIP,
+                CompressionAlgorithm.Uncompressed,
+            ],
+        )
+        Path(self.KEY_PATH).write_text(data=str(key))
+        result = template.render(context=Context())  # type: str
+
+        self.assertTrue(expr=expected.strip() in result.strip())

@@ -5,8 +5,10 @@
 {% load security_txt_tags %}
 
 
-{% if SIGN %}
-    {{ SIGN }}
-{% else %}
-    {% security_txt %}
-{% endif %}
+{% with security_txt as DATA %}
+    {% if SIGN %}
+        {% sign_security_txt DATA %}
+    {% else %}
+        {{ DATA }}
+    {% endif %}
+{% endwith %}
