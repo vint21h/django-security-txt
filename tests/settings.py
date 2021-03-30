@@ -58,26 +58,10 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.messages",
-    "django_nose",
     "phonenumber_field",
     "security_txt",
 ]  # type: List[str]
 
-# add nose test runner
-TEST_RUNNER = "django_nose.NoseTestSuiteRunner"  # type: str
-
-# configure nose test runner
-NOSE_ARGS = [
-    "--rednose",
-    "--force-color",
-    "--with-timer",
-    "--with-doctest",
-    "--with-coverage",
-    "--cover-inclusive",
-    "--cover-erase",
-    "--cover-package=security_txt",
-    "--logging-clear-handlers",
-]  # type: List[str]
 
 # configure urls
 ROOT_URLCONF = "security_txt.urls"  # type: str
