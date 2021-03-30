@@ -15,7 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-
 #: security_txt/apps.py:22
 msgid "Django security.txt"
 msgstr "Django security.txt"

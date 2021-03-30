@@ -12,6 +12,7 @@ from pgpy import PGPUID, PGPKey
 from django.test import TestCase
 from django.template import Context, Template
 from django.test.utils import override_settings
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import override as override_translation
 from pgpy.constants import (
     KeyFlags,
@@ -427,3 +428,25 @@ Hash: SHA256
         result = template.render(context=Context())  # type: str
 
         self.assertTrue(expr=expected.strip() in result.strip())
+
+    @override_translation("en")
+    @override_settings(SECURITY_TXT_SIGN=True, SECURITY_TXT_SIGNING_KEY="")
+    def test_sign_security_txt__improperly_configured(self) -> None:
+        """
+        Test templatetag raises improperly configured error.
+        """
+
+        with self.assertRaises(expected_exception=ImproperlyConfigured, msg=""):
+            sign_security_txt(data="")
+
+    @override_translation("en")
+    @override_settings(
+        SECURITY_TXT_SIGN=True, SECURITY_TXT_SIGNING_KEY="/path/to/key.asc"
+    )
+    def test_sign_security_txt__improperly_configured__no_key(self) -> None:
+        """
+        Test templatetag raises improperly configured error for not existing key file.
+        """
+
+        with self.assertRaises(expected_exception=ImproperlyConfigured, msg=""):
+            sign_security_txt(data="")

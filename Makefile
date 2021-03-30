@@ -23,7 +23,7 @@ tox:
 
 
 test:
-	bash -c 'PYTHONPATH="$${PYTHONPATH}:$${PWD}" py.test --cov=$(NAME) --modules-durations=0 --functions-durations=0 --instafail $(TESTS)';\
+	bash -c 'PYTHONPATH="$${PYTHONPATH}:$${PWD}" $(RUN) py.test --cov=$(NAME) --modules-durations=0 --functions-durations=0 --instafail $(TESTS)';\
 
 
 makemessages:
