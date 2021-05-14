@@ -5,7 +5,7 @@
 A django-security-txt documentation
 ===================================
 
-|GitHub|_ |Coveralls|_ |Requires|_ |pypi-license|_ |pypi-version|_ |pypi-python-version|_ |pypi-django-version|_ |pypi-format|_ |pypi-wheel|_ |pypi-status|_
+|GitHub|_ |Coveralls|_ |pypi-license|_ |pypi-version|_ |pypi-python-version|_ |pypi-django-version|_ |pypi-format|_ |pypi-wheel|_ |pypi-status|_
 
     *django-security-txt is a Django reusable application to handle security.txt (http://securitytxt.org/)*
 
@@ -85,8 +85,6 @@ For other authors list see AUTHORS file.
     :alt: GitHub
 .. |Coveralls| image:: https://coveralls.io/repos/github/vint21h/django-security-txt/badge.svg?branch=master
     :alt: Coveralls
-.. |Requires| image:: https://requires.io/github/vint21h/django-security-txt/requirements.svg?branch=master
-    :alt: Requires
 .. |pypi-license| image:: https://img.shields.io/pypi/l/django-security-txt
     :alt: License
 .. |pypi-version| image:: https://img.shields.io/pypi/v/django-security-txt
@@ -103,7 +101,6 @@ For other authors list see AUTHORS file.
     :alt: Package status
 .. _GitHub: https://github.com/vint21h/django-security-txt/actions/
 .. _Coveralls: https://coveralls.io/github/vint21h/django-security-txt?branch=master
-.. _Requires: https://requires.io/github/vint21h/django-security-txt/requirements/?branch=master
 .. _pypi-license: https://pypi.org/project/django-security-txt/
 .. _pypi-version: https://pypi.org/project/django-security-txt/
 .. _pypi-django-version: https://pypi.org/project/django-security-txt/
