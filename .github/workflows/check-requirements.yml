@@ -2,10 +2,6 @@
 # .github/workflows/check-requirements.yml
 
 
-# django-humans-txt
-# .github/workflows/check-requirements.yml
-
-
 name: "check-requirements"
 on:
   push:
