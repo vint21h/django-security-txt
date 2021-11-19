@@ -4,9 +4,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: django-security-txt 0.3.2\n"
+"Project-Id-Version: django-security-txt 0.4.0\n"
 "Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2021-05-26 01:31+0300\n"
+"POT-Creation-Date: 2021-11-19 06:51+0200\n"
 "PO-Revision-Date: 2021-03-20 16:55+0200\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -17,8 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 :  n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-
-#: security_txt/apps.py:22
+#: security_txt/apps.py:20
 msgid "Django security.txt"
 msgstr "Django security.txt"
 
@@ -31,49 +30,49 @@ msgid "Phone"
 msgstr "Телефон"
 
 #: security_txt/constants.py:32 security_txt/constants.py:39
-#: security_txt/models/acknowledgment.py:23 security_txt/models/canonical.py:23
-#: security_txt/models/contact.py:63 security_txt/models/encryption.py:49
-#: security_txt/models/hiring.py:23 security_txt/models/policy.py:23
+#: security_txt/models/acknowledgment.py:21 security_txt/models/canonical.py:21
+#: security_txt/models/contact.py:61 security_txt/models/encryption.py:47
+#: security_txt/models/hiring.py:21 security_txt/models/policy.py:21
 msgid "URL"
 msgstr "URL"
 
-#: security_txt/constants.py:40 security_txt/models/encryption.py:59
+#: security_txt/constants.py:40 security_txt/models/encryption.py:57
 msgid "OPENPGPKEY DNS record"
 msgstr "OPENPGPKEY DNS запис"
 
-#: security_txt/constants.py:41 security_txt/models/encryption.py:75
+#: security_txt/constants.py:41 security_txt/models/encryption.py:73
 msgid "OpenPGP key fingerprint"
 msgstr "відбиток OpenPGP ключа"
 
-#: security_txt/models/acknowledgment.py:24
+#: security_txt/models/acknowledgment.py:22
 msgid "link to page where security researchers are recognized"
 msgstr "посилання на сторінку із подяками дослідникам безпеки"
 
-#: security_txt/models/acknowledgment.py:37
+#: security_txt/models/acknowledgment.py:33
 msgid "acknowledgment"
 msgstr "подяка"
 
-#: security_txt/models/acknowledgment.py:38
+#: security_txt/models/acknowledgment.py:34
 msgid "acknowledgments"
 msgstr "подяки"
 
-#: security_txt/models/canonical.py:25
+#: security_txt/models/canonical.py:23
 msgid "indicates the canonical URIs where the security.txt file is located"
 msgstr "описує повний шлях до файлу security.txt"
 
-#: security_txt/models/canonical.py:39
+#: security_txt/models/canonical.py:35
 msgid "canonical"
 msgstr "повний шлях"
 
-#: security_txt/models/canonical.py:40
+#: security_txt/models/canonical.py:36
 msgid "canonicals"
 msgstr "повні шляхи"
 
-#: security_txt/models/contact.py:39 security_txt/models/encryption.py:40
+#: security_txt/models/contact.py:37 security_txt/models/encryption.py:38
 msgid "type"
 msgstr "тип"
 
-#: security_txt/models/contact.py:41 security_txt/models/encryption.py:42
+#: security_txt/models/contact.py:39 security_txt/models/encryption.py:40
 msgid ""
 "contact type, possible variants: {', '.join(str(type) for type in "
 "dict(TYPE_CHOICES).values())}"
@@ -81,47 +80,47 @@ msgstr ""
 "тип контакту, можливі варіанти: {', '.join(str(type) for type in "
 "dict(TYPE_CHOICES).values())}"
 
-#: security_txt/models/contact.py:48
+#: security_txt/models/contact.py:46
 msgid "e-mail"
 msgstr "e-mail"
 
-#: security_txt/models/contact.py:49
+#: security_txt/models/contact.py:47
 msgid "contact e-mail"
 msgstr "контактний e-mail"
 
-#: security_txt/models/contact.py:56
+#: security_txt/models/contact.py:54
 msgid "phone"
 msgstr "телефон"
 
-#: security_txt/models/contact.py:57
+#: security_txt/models/contact.py:55
 msgid "contact phone number"
 msgstr "номер контактного телефону"
 
-#: security_txt/models/contact.py:64
+#: security_txt/models/contact.py:62
 msgid "contact page URL"
 msgstr "URL сторінки із контактами"
 
-#: security_txt/models/contact.py:78
+#: security_txt/models/contact.py:74
 msgid "contact"
 msgstr "контакт"
 
-#: security_txt/models/contact.py:79
+#: security_txt/models/contact.py:75
 msgid "contacts"
 msgstr "контакти"
 
-#: security_txt/models/contact.py:167 security_txt/models/encryption.py:183
+#: security_txt/models/contact.py:158 security_txt/models/encryption.py:174
 msgid "Provide corresponding type field value: {self.get_type_display()}"
 msgstr "Заповнить поле яке співвідноситься із типом: {self.get_type_display()}"
 
-#: security_txt/models/encryption.py:50
+#: security_txt/models/encryption.py:48
 msgid "URL to public OpenPGP key"
 msgstr "посилання на публічний OpenPGP ключ"
 
-#: security_txt/models/encryption.py:58
+#: security_txt/models/encryption.py:56
 msgid "DNS record"
 msgstr "DNS запис"
 
-#: security_txt/models/encryption.py:68
+#: security_txt/models/encryption.py:66
 msgid ""
 "Invalid OPENPGPKEY DNS record, more information: https://tools.ietf.org/html/"
 "rfc7929"
@@ -129,35 +128,35 @@ msgstr ""
 "Некорекний OPENPGPKEY DNS запис, більше інформації: https://tools.ietf.org/"
 "html/rfc7929"
 
-#: security_txt/models/encryption.py:74
+#: security_txt/models/encryption.py:72
 msgid "key fingerprint"
 msgstr "відбиток ключа"
 
-#: security_txt/models/encryption.py:83
+#: security_txt/models/encryption.py:81
 msgid "Invalid OpenPGP key fingerprint"
 msgstr "Некоректний відбиток OpenPGP ключа"
 
-#: security_txt/models/encryption.py:94 security_txt/models/encryption.py:95
+#: security_txt/models/encryption.py:90 security_txt/models/encryption.py:91
 msgid "encryption"
 msgstr "шифрування"
 
-#: security_txt/models/hiring.py:24
+#: security_txt/models/hiring.py:22
 msgid "used for linking to the vendor's security-related job positions"
 msgstr "використувуються для посилання на вакансії зв'язані з безпекою"
 
-#: security_txt/models/hiring.py:37 security_txt/models/hiring.py:38
+#: security_txt/models/hiring.py:33 security_txt/models/hiring.py:34
 msgid "hiring"
 msgstr "наймаємо"
 
-#: security_txt/models/policy.py:25
+#: security_txt/models/policy.py:23
 msgid ""
 "indicates a link to where the vulnerability disclosure policy is located"
 msgstr "описує поилання до політики розголошення вразливості"
 
-#: security_txt/models/policy.py:39
+#: security_txt/models/policy.py:35
 msgid "policy"
 msgstr "політика"
 
-#: security_txt/models/policy.py:40
+#: security_txt/models/policy.py:36
 msgid "policies"
 msgstr "політики"
