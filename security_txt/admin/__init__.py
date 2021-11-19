@@ -4,7 +4,7 @@
 # security_txt/admin/__init__.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.contrib import admin
 
@@ -22,14 +22,14 @@ from security_txt.models.acknowledgment import Acknowledgment
 from security_txt.admin.acknowledgment import AcknowledgmentAdmin
 
 
-__all__ = [
+__all__: List[str] = [
     "AcknowledgmentAdmin",
     "CanonicalAdmin",
     "ContactAdmin",
     "HiringAdmin",
     "PolicyAdmin",
     "EncryptionAdmin",
-]  # type: List[str]
+]
 
 
 # registering admin custom classes

@@ -4,7 +4,7 @@
 # security_txt/models/contact.py
 
 
-from typing import List, Iterable, Optional  # pylint: disable=W0611
+from typing import List, Iterable, Optional
 
 from django.db import models
 from django.core.validators import URLValidator
@@ -20,13 +20,11 @@ from security_txt.constants import (
 )
 
 
-__all__ = ["Contact"]  # type: List[str]
+__all__: List[str] = ["Contact"]
 
 
-class Contact(models.Model):
-    """
-    Contact model.
-    """
+class Contact(models.Model):  # noqa: DJ10,DJ1
+    """Contact model."""
 
     TYPE_EMAIL, TYPE_PHONE, TYPE_URL = (
         CONTACT_TYPE_EMAIL,
@@ -35,16 +33,16 @@ class Contact(models.Model):
     )
     TYPE_CHOICES = CONTACT_TYPE_CHOICES
 
-    type = models.PositiveIntegerField(
+    type = models.PositiveIntegerField(  # noqa: A003
         verbose_name=_("type"),
         help_text=_(
-            f"contact type, possible variants: {', '.join(str(type) for type in dict(TYPE_CHOICES).values())}"  # noqa: E501
+            f"contact type, possible variants: {', '.join(str(type) for type in dict(TYPE_CHOICES).values())}"  # noqa: E501,A001
         ),
         db_index=True,
         choices=TYPE_CHOICES,
         default=TYPE_EMAIL,
     )
-    email = models.EmailField(
+    email = models.EmailField(  # noqa: DJ01
         verbose_name=_("e-mail"),
         help_text=_("contact e-mail"),
         max_length=512,
@@ -59,7 +57,7 @@ class Contact(models.Model):
         blank=True,
         null=True,
     )
-    url = models.URLField(
+    url = models.URLField(  # noqa: DJ01
         verbose_name=_("URL"),
         help_text=_("contact page URL"),
         max_length=512,
@@ -70,34 +68,18 @@ class Contact(models.Model):
     )
 
     class Meta:
-        """
-        Model settings.
-        """
+        """Model settings."""
 
-        app_label = "security_txt"  # type: str
-        verbose_name = _("contact")  # type: str
-        verbose_name_plural = _("contacts")  # type: str
-        ordering = ["type"]  # type: List[str]
-        unique_together = [
+        app_label: str = "security_txt"
+        verbose_name: str = _("contact")
+        verbose_name_plural: str = _("contacts")
+        ordering: List[str] = ["type"]
+        unique_together: List[str] = [
             "type",
             "email",
             "phone",
             "url",
-        ]  # type: List[str]
-
-    def __unicode__(self) -> str:
-        """
-        Model representation.
-
-        :return: corresponding type value
-        :rtype: str
-        """
-
-        return {  # type: ignore
-            self.TYPE_EMAIL: f"mailto:{self.email}",
-            self.TYPE_PHONE: f"tel:{self.phone}",
-            self.TYPE_URL: self.url,
-        }[self.type]
+        ]
 
     def __str__(self) -> str:
         """
@@ -106,17 +88,6 @@ class Contact(models.Model):
         :return: corresponding type value
         :rtype: str
         """
-
-        return self.__unicode__()
-
-    def __repr__(self) -> str:
-        """
-        Model representation.
-
-        :return: corresponding type value
-        :rtype: str
-        """
-
         return self.__unicode__()
 
     def save(
@@ -140,7 +111,6 @@ class Contact(models.Model):
         :return: self instance
         :rtype: Category
         """
-
         self.clean()
 
         return super(Contact, self).save(
@@ -150,13 +120,34 @@ class Contact(models.Model):
             update_fields=update_fields,
         )
 
+    def __unicode__(self) -> str:
+        """
+        Model representation.
+
+        :return: corresponding type value
+        :rtype: str
+        """
+        return {  # type: ignore
+            self.TYPE_EMAIL: f"mailto:{self.email}",
+            self.TYPE_PHONE: f"tel:{self.phone}",
+            self.TYPE_URL: self.url,
+        }[self.type]
+
+    def __repr__(self) -> str:
+        """
+        Model representation.
+
+        :return: corresponding type value
+        :rtype: str
+        """
+        return self.__unicode__()
+
     def clean(self) -> None:
         """
         Some checks.
 
         :raises ValidationError: in case of empty corresponding type field
         """
-
         if not {
             self.TYPE_EMAIL: self.email,
             self.TYPE_PHONE: self.phone,

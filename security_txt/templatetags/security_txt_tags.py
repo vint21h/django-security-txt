@@ -5,7 +5,7 @@
 
 
 from pathlib import Path
-from typing import Any, Dict, List  # pylint: disable=W0611
+from typing import Any, Dict, List
 
 from pgpy import PGPKey
 from django import template
@@ -20,7 +20,7 @@ from security_txt.models.encryption import Encryption
 from security_txt.models.acknowledgment import Acknowledgment
 
 
-__all__ = ["security_txt"]  # type: List[str]
+__all__: List[str] = ["security_txt"]
 
 
 register = template.Library()
@@ -34,7 +34,6 @@ def security_txt() -> Dict[str, Any]:
     :return: templatetag context data
     :rtype: Dict[str, Any]
     """
-
     return {
         "SECURITY_TXT_ACKNOWLEDGMENTS": Acknowledgment.objects.all(),
         "SECURITY_TXT_CANONICALS": Canonical.objects.all(),
@@ -58,7 +57,6 @@ def sign_security_txt(data: str) -> Dict[str, str]:
     :rtype: Dict[str, str]
     :raises ImproperlyConfigured: in case of bad signing config
     """
-
     if (settings.SECURITY_TXT_SIGN and not settings.SECURITY_TXT_SIGNING_KEY) or (  # type: ignore  # noqa: E501
         not Path(settings.SECURITY_TXT_SIGNING_KEY).exists()  # type: ignore  # noqa: E501
     ):

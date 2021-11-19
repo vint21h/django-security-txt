@@ -4,19 +4,17 @@
 # security_txt/admin/contact.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.contrib import admin
 
 
-__all__ = ["ContactAdmin"]  # type: List[str]
+__all__: List[str] = ["ContactAdmin"]
 
 
 class ContactAdmin(admin.ModelAdmin):  # type: ignore
-    """
-    Customize Contact model for admin area.
-    """
+    """Customize Contact model for admin area."""
 
-    list_display = ["pk", "type", "email", "phone", "url"]  # type: List[str]
-    search_fields = ["email", "phone", "url"]  # type: List[str]
-    list_filter = ["type"]  # type: List[str]
+    list_display: List[str] = ["pk", "type", "email", "phone", "url"]
+    search_fields: List[str] = ["email", "phone", "url"]
+    list_filter: List[str] = ["type"]

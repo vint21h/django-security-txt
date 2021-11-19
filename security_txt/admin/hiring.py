@@ -4,18 +4,16 @@
 # security_txt/admin/hiring.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.contrib import admin
 
 
-__all__ = ["HiringAdmin"]  # type: List[str]
+__all__: List[str] = ["HiringAdmin"]
 
 
 class HiringAdmin(admin.ModelAdmin):  # type: ignore
-    """
-    Customize Hiring model for admin area.
-    """
+    """Customize Hiring model for admin area."""
 
-    list_display = ["url"]  # type: List[str]
-    search_fields = ["url"]  # type: List[str]
+    list_display: List[str] = ["url"]
+    search_fields: List[str] = ["url"]

@@ -4,20 +4,18 @@
 # security_txt/models/policy.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.db import models
 from django.core.validators import URLValidator
 from django.utils.translation import gettext_lazy as _
 
 
-__all__ = ["Policy"]  # type: List[str]
+__all__: List[str] = ["Policy"]
 
 
-class Policy(models.Model):
-    """
-    Policy model.
-    """
+class Policy(models.Model):  # noqa: DJ10,DJ1
+    """Policy model."""
 
     url = models.URLField(
         verbose_name=_("URL"),
@@ -31,24 +29,12 @@ class Policy(models.Model):
     )
 
     class Meta:
-        """
-        Model settings.
-        """
+        """Model settings."""
 
-        app_label = "security_txt"  # type: str
-        verbose_name = _("policy")  # type: str
-        verbose_name_plural = _("policies")  # type: str
-        ordering = ["url"]  # type: List[str]
-
-    def __unicode__(self) -> str:
-        """
-        Model representation.
-
-        :return: policy URL
-        :rtype: str
-        """
-
-        return self.url
+        app_label: str = "security_txt"
+        verbose_name: str = _("policy")
+        verbose_name_plural: str = _("policies")
+        ordering: List[str] = ["url"]
 
     def __str__(self) -> str:
         """
@@ -57,8 +43,16 @@ class Policy(models.Model):
         :return: policy URL
         :rtype: str
         """
-
         return self.__unicode__()
+
+    def __unicode__(self) -> str:
+        """
+        Model representation.
+
+        :return: policy URL
+        :rtype: str
+        """
+        return self.url
 
     def __repr__(self) -> str:
         """
@@ -67,5 +61,4 @@ class Policy(models.Model):
         :return: policy URL
         :rtype: str
         """
-
         return self.__unicode__()

@@ -4,7 +4,7 @@
 # security_txt/models/encryption.py
 
 
-from typing import List, Iterable, Optional  # pylint: disable=W0611
+from typing import List, Iterable, Optional
 
 from django.db import models
 from django.core.exceptions import ValidationError
@@ -21,13 +21,11 @@ from security_txt.constants import (
 )
 
 
-__all__ = ["Encryption"]  # type: List[str]
+__all__: List[str] = ["Encryption"]
 
 
-class Encryption(models.Model):
-    """
-    Encryption model.
-    """
+class Encryption(models.Model):  # noqa: DJ10,DJ1
+    """Encryption model."""
 
     TYPE_URL, TYPE_DNS, TYPE_FINGERPRINT = (
         ENCRYPTION_TYPE_URL,
@@ -36,16 +34,16 @@ class Encryption(models.Model):
     )
     TYPE_CHOICES = ENCRYPTION_TYPE_CHOICES
 
-    type = models.PositiveIntegerField(
+    type = models.PositiveIntegerField(  # noqa: A003
         verbose_name=_("type"),
         help_text=_(
-            f"contact type, possible variants: {', '.join(str(type) for type in dict(TYPE_CHOICES).values())}"  # noqa: E501
+            f"contact type, possible variants: {', '.join(str(type) for type in dict(TYPE_CHOICES).values())}"  # noqa: E501,A001
         ),
         db_index=True,
         choices=TYPE_CHOICES,
         default=TYPE_URL,
     )
-    url = models.URLField(
+    url = models.URLField(  # noqa: DJ01
         verbose_name=_("URL"),
         help_text=_("URL to public OpenPGP key"),
         max_length=512,
@@ -54,7 +52,7 @@ class Encryption(models.Model):
         null=True,
         validators=[URLValidator(schemes=["https"])],
     )
-    dns = models.CharField(
+    dns = models.CharField(  # noqa: DJ01
         verbose_name=_("DNS record"),
         help_text=_("OPENPGPKEY DNS record"),
         max_length=512,
@@ -70,7 +68,7 @@ class Encryption(models.Model):
             )
         ],
     )
-    fingerprint = models.CharField(
+    fingerprint = models.CharField(  # noqa: DJ01
         verbose_name=_("key fingerprint"),
         help_text=_("OpenPGP key fingerprint"),
         max_length=512,
@@ -86,34 +84,18 @@ class Encryption(models.Model):
     )
 
     class Meta:
-        """
-        Model settings.
-        """
+        """Model settings."""
 
-        app_label = "security_txt"  # type: str
-        verbose_name = _("encryption")  # type: str
-        verbose_name_plural = _("encryption")  # type: str
-        ordering = ["type"]  # type: List[str]
-        unique_together = [
+        app_label: str = "security_txt"
+        verbose_name: str = _("encryption")
+        verbose_name_plural: str = _("encryption")
+        ordering: List[str] = ["type"]
+        unique_together: List[str] = [
             "type",
             "url",
             "dns",
             "fingerprint",
-        ]  # type: List[str]
-
-    def __unicode__(self) -> str:
-        """
-        Model representation.
-
-        :return: corresponding type value
-        :rtype: str
-        """
-
-        return {  # type: ignore
-            self.TYPE_URL: self.url,
-            self.TYPE_DNS: f"dns:{self.dns}",
-            self.TYPE_FINGERPRINT: f"openpgp4fpr:{self.fingerprint}",
-        }[self.type]
+        ]
 
     def __str__(self) -> str:
         """
@@ -122,17 +104,6 @@ class Encryption(models.Model):
         :return: corresponding type value
         :rtype: str
         """
-
-        return self.__unicode__()
-
-    def __repr__(self) -> str:
-        """
-        Model representation.
-
-        :return: corresponding type value
-        :rtype: str
-        """
-
         return self.__unicode__()
 
     def save(
@@ -156,7 +127,6 @@ class Encryption(models.Model):
         :return: self instance
         :rtype: Category
         """
-
         self.clean()
 
         return super(Encryption, self).save(
@@ -166,13 +136,34 @@ class Encryption(models.Model):
             update_fields=update_fields,
         )
 
+    def __unicode__(self) -> str:
+        """
+        Model representation.
+
+        :return: corresponding type value
+        :rtype: str
+        """
+        return {  # type: ignore
+            self.TYPE_URL: self.url,
+            self.TYPE_DNS: f"dns:{self.dns}",
+            self.TYPE_FINGERPRINT: f"openpgp4fpr:{self.fingerprint}",
+        }[self.type]
+
+    def __repr__(self) -> str:
+        """
+        Model representation.
+
+        :return: corresponding type value
+        :rtype: str
+        """
+        return self.__unicode__()
+
     def clean(self) -> None:
         """
         Some checks.
 
         :raises ValidationError: in case of empty corresponding type field
         """
-
         if not {
             self.TYPE_URL: self.url,
             self.TYPE_DNS: self.dns,

@@ -4,20 +4,18 @@
 # security_txt/models/hiring.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.db import models
 from django.core.validators import URLValidator
 from django.utils.translation import gettext_lazy as _
 
 
-__all__ = ["Hiring"]  # type: List[str]
+__all__: List[str] = ["Hiring"]
 
 
-class Hiring(models.Model):
-    """
-    Hiring model.
-    """
+class Hiring(models.Model):  # noqa: DJ10,DJ1
+    """Hiring model."""
 
     url = models.URLField(
         verbose_name=_("URL"),
@@ -29,24 +27,12 @@ class Hiring(models.Model):
     )
 
     class Meta:
-        """
-        Model settings.
-        """
+        """Model settings."""
 
-        app_label = "security_txt"  # type: str
-        verbose_name = _("hiring")  # type: str
-        verbose_name_plural = _("hiring")  # type: str
-        ordering = ["url"]  # type: List[str]
-
-    def __unicode__(self) -> str:
-        """
-        Model representation.
-
-        :return: hiring URL
-        :rtype: str
-        """
-
-        return self.url
+        app_label: str = "security_txt"
+        verbose_name: str = _("hiring")
+        verbose_name_plural: str = _("hiring")
+        ordering: List[str] = ["url"]
 
     def __str__(self) -> str:
         """
@@ -55,8 +41,16 @@ class Hiring(models.Model):
         :return: hiring URL
         :rtype: str
         """
-
         return self.__unicode__()
+
+    def __unicode__(self) -> str:
+        """
+        Model representation.
+
+        :return: hiring URL
+        :rtype: str
+        """
+        return self.url
 
     def __repr__(self) -> str:
         """
@@ -65,5 +59,4 @@ class Hiring(models.Model):
         :return: hiring URL
         :rtype: str
         """
-
         return self.__unicode__()

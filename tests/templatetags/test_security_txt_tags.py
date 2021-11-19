@@ -4,9 +4,9 @@
 # tests/test_views.py
 
 
+from typing import List
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-from typing import List  # pylint: disable=W0611
 
 from pgpy import PGPUID, PGPKey
 from django.test import TestCase
@@ -31,20 +31,15 @@ from security_txt.models.acknowledgment import Acknowledgment
 from security_txt.templatetags.security_txt_tags import security_txt, sign_security_txt
 
 
-__all__ = ["SecurityTxtTemplatetagTest"]  # type: List[str]
+__all__: List[str] = ["SecurityTxtTemplatetagTest"]
 
 
 class SecurityTxtTemplatetagTest(TestCase):
-    """
-    security.txt templatetag tests.
-    """
+    """security.txt templatetag tests."""
 
     @classmethod
     def setUpTestData(cls) -> None:
-        """
-        Set up non-modified objects used by all test methods.
-        """
-
+        """Set up non-modified objects used by all test methods."""
         Acknowledgment.objects.create(url="https://example.com/")
         Canonical.objects.create(url="https://example.com/.well-known/security.txt")
         Canonical.objects.create(url="https://www.example.com/.well-known/security.txt")
@@ -64,19 +59,13 @@ class SecurityTxtTemplatetagTest(TestCase):
         Policy.objects.create(url="https://example.com/")
 
     def test_security_txt__return_response(self) -> None:
-        """
-        Test templatetag returning response.
-        """
-
+        """Test templatetag returning response."""
         self.assertIsInstance(obj=security_txt(), cls=dict)
 
     @override_translation("en")
     def test_security_txt__render(self) -> None:
-        """
-        Test templatetag rendering result.
-        """
-
-        expected = """
+        """Test templatetag rendering result."""
+        expected: str = """
         # Our security acknowledgments page
         Acknowledgments: https://example.com/
         # Canonical URI
@@ -95,22 +84,19 @@ class SecurityTxtTemplatetagTest(TestCase):
         # Our security policy
         Policy: https://example.com/
         Preferred-Languages: en, uk
-        """  # type: str  # noqa: E501
-        template = Template(
-            "{% load security_txt_tags %}" "{% security_txt %}"
-        )  # type: Template
-        result = template.render(context=Context())  # type: str
+        """  # noqa: E501
+        template: Template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"  # noqa: FS003
+        )
+        result: str = template.render(context=Context())
 
         self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     @override_settings(SECURITY_TXT_EXPIRES=None)
     def test_security_txt__render__without_expires(self) -> None:
-        """
-        Test view rendering result without expires date/time.
-        """
-
-        expected = """
+        """Test view rendering result without expires date/time."""
+        expected: str = """
         # Our security acknowledgments page
         Acknowledgments: https://example.com/
         # Canonical URI
@@ -128,22 +114,19 @@ class SecurityTxtTemplatetagTest(TestCase):
         # Our security policy
         Policy: https://example.com/
         Preferred-Languages: en, uk
-        """  # type: str  # noqa: E501
-        template = Template(
-            "{% load security_txt_tags %}" "{% security_txt %}"
-        )  # type: Template
-        result = template.render(context=Context())  # type: str
+        """  # noqa: E501
+        template: Template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"  # noqa: FS003
+        )
+        result: str = template.render(context=Context())
 
         self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     @override_settings(SECURITY_TXT_PREFERRED_LANGUAGES=None)
     def test_security_txt__render__without_preferred_languages(self) -> None:
-        """
-        Test view rendering result without preferred languages.
-        """
-
-        expected = """
+        """Test view rendering result without preferred languages."""
+        expected: str = """
         # Our security acknowledgments page
         Acknowledgments: https://example.com/
         # Canonical URI
@@ -161,23 +144,20 @@ class SecurityTxtTemplatetagTest(TestCase):
         Hiring: https://example.com/
         # Our security policy
         Policy: https://example.com/
-        """  # type: str  # noqa: E501
-        template = Template(
-            "{% load security_txt_tags %}" "{% security_txt %}"
-        )  # type: Template
-        result = template.render(context=Context())  # type: str
+        """  # noqa: E501
+        template: Template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"  # noqa: FS003
+        )
+        result: str = template.render(context=Context())
 
         self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     def test_security_txt__render__without_acknowledgments(self) -> None:
-        """
-        Test view rendering result without acknowledgments.
-        """
-
+        """Test view rendering result without acknowledgments."""
         Acknowledgment.objects.all().delete()
 
-        expected = """
+        expected: str = """
         # Canonical URI
         Canonical: https://example.com/.well-known/security.txt
         Canonical: https://www.example.com/.well-known/security.txt
@@ -194,23 +174,20 @@ class SecurityTxtTemplatetagTest(TestCase):
         # Our security policy
         Policy: https://example.com/
         Preferred-Languages: en, uk
-        """  # type: str  # noqa: E501
-        template = Template(
-            "{% load security_txt_tags %}" "{% security_txt %}"
-        )  # type: Template
-        result = template.render(context=Context())  # type: str
+        """  # noqa: E501
+        template: Template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"  # noqa: FS003
+        )
+        result: str = template.render(context=Context())
 
         self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     def test_security_txt__render__without_canonicals(self) -> None:
-        """
-        Test view rendering result without canonicals.
-        """
-
+        """Test view rendering result without canonicals."""
         Canonical.objects.all().delete()
 
-        expected = """
+        expected: str = """
         # Our security acknowledgments page
         Acknowledgments: https://example.com/
         # Our security address
@@ -226,23 +203,20 @@ class SecurityTxtTemplatetagTest(TestCase):
         # Our security policy
         Policy: https://example.com/
         Preferred-Languages: en, uk
-        """  # type: str  # noqa: E501
-        template = Template(
-            "{% load security_txt_tags %}" "{% security_txt %}"
-        )  # type: Template
-        result = template.render(context=Context())  # type: str
+        """  # noqa: E501
+        template: Template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"  # noqa: FS003
+        )
+        result: str = template.render(context=Context())
 
         self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     def test_security_txt__render__without_contacts(self) -> None:
-        """
-        Test view rendering result without contacts.
-        """
-
+        """Test view rendering result without contacts."""
         Contact.objects.all().delete()
 
-        expected = """
+        expected: str = """
         # Our security acknowledgments page
         Acknowledgments: https://example.com/
         # Canonical URI
@@ -257,23 +231,20 @@ class SecurityTxtTemplatetagTest(TestCase):
         # Our security policy
         Policy: https://example.com/
         Preferred-Languages: en, uk
-        """  # type: str  # noqa: E501
-        template = Template(
-            "{% load security_txt_tags %}" "{% security_txt %}"
-        )  # type: Template
-        result = template.render(context=Context())  # type: str
+        """  # noqa: E501
+        template: Template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"  # noqa: FS003
+        )
+        result: str = template.render(context=Context())
 
         self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     def test_security_txt__render__without_encryption(self) -> None:
-        """
-        Test view rendering result without encryption.
-        """
-
+        """Test view rendering result without encryption."""
         Encryption.objects.all().delete()
 
-        expected = """
+        expected: str = """
         # Our security acknowledgments page
         Acknowledgments: https://example.com/
         # Canonical URI
@@ -288,23 +259,20 @@ class SecurityTxtTemplatetagTest(TestCase):
         # Our security policy
         Policy: https://example.com/
         Preferred-Languages: en, uk
-        """  # type: str  # noqa: E501
-        template = Template(
-            "{% load security_txt_tags %}" "{% security_txt %}"
-        )  # type: Template
-        result = template.render(context=Context())  # type: str
+        """  # noqa: E501
+        template: Template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"  # noqa: FS003
+        )
+        result: str = template.render(context=Context())
 
         self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     def test_security_txt__render__without_hiring(self) -> None:
-        """
-        Test view rendering result without hiring.
-        """
-
+        """Test view rendering result without hiring."""
         Hiring.objects.all().delete()
 
-        expected = """
+        expected: str = """
         # Our security acknowledgments page
         Acknowledgments: https://example.com/
         # Canonical URI
@@ -322,23 +290,20 @@ class SecurityTxtTemplatetagTest(TestCase):
         # Our security policy
         Policy: https://example.com/
         Preferred-Languages: en, uk
-        """  # type: str  # noqa: E501
-        template = Template(
-            "{% load security_txt_tags %}" "{% security_txt %}"
-        )  # type: Template
-        result = template.render(context=Context())  # type: str
+        """  # noqa: E501
+        template: Template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"  # noqa: FS003
+        )
+        result: str = template.render(context=Context())
 
         self.assertHTMLEqual(html1=result, html2=expected)
 
     @override_translation("en")
     def test_security_txt__render__without_policies(self) -> None:
-        """
-        Test view rendering result without policies.
-        """
-
+        """Test view rendering result without policies."""
         Policy.objects.all().delete()
 
-        expected = """
+        expected: str = """
         # Our security acknowledgments page
         Acknowledgments: https://example.com/
         # Canonical URI
@@ -355,48 +320,40 @@ class SecurityTxtTemplatetagTest(TestCase):
         Expires: Aug. 29, 1997, 2:14 a.m.
         Hiring: https://example.com/
         Preferred-Languages: en, uk
-        """  # type: str  # noqa: E501
-        template = Template(
-            "{% load security_txt_tags %}" "{% security_txt %}"
-        )  # type: Template
-        result = template.render(context=Context())  # type: str
+        """  # noqa: E501
+        template: Template = Template(
+            "{% load security_txt_tags %}" "{% security_txt %}"  # noqa: FS003
+        )
+        result: str = template.render(context=Context())
 
         self.assertHTMLEqual(html1=result, html2=expected)
 
 
 class SignSecurityTxtTemplatetagTest(TestCase):
-    """
-    Sign security.txt templatetag tests.
-    """
+    """Sign security.txt templatetag tests."""
 
     KEY_PATH = NamedTemporaryFile().name
 
     @override_translation("en")
     @override_settings(SECURITY_TXT_SIGN=True, SECURITY_TXT_SIGNING_KEY=KEY_PATH)
     def test_sign_security_txt__return_response(self) -> None:
-        """
-        Test templatetag returning response.
-        """
-
+        """Test templatetag returning response."""
         self.assertIsInstance(obj=sign_security_txt(data=""), cls=dict)
 
     @override_translation("en")
     @override_settings(SECURITY_TXT_SIGN=True, SECURITY_TXT_SIGNING_KEY=KEY_PATH)
     def test_sign_security_txt__render(self) -> None:
-        """
-        Test templatetag rendering result.
-        """
-
+        """Test templatetag rendering result."""
         expected = """
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
 -----BEGIN PGP SIGNATURE-----
         """
-        template = Template(
-            "{% load security_txt_tags %}"
-            "{% with security_txt as DATA %}{% sign_security_txt DATA %}{% endwith %}"
-        )  # type: Template  # noqa: E501
+        template: Template = Template(
+            "{% load security_txt_tags %}"  # noqa: FS003
+            "{% with security_txt as DATA %}{% sign_security_txt DATA %}{% endwith %}"  # noqa: FS003,E501
+        )
         key = PGPKey.new(PubKeyAlgorithm.RSAEncryptOrSign, 4096)
         uid = PGPUID.new(pn="TEST", comment="Test", email="test@example.com")
         key.add_uid(
@@ -425,17 +382,14 @@ Hash: SHA256
             ],
         )
         Path(self.KEY_PATH).write_text(data=str(key))
-        result = template.render(context=Context())  # type: str
+        result: str = template.render(context=Context())
 
         self.assertTrue(expr=expected.strip() in result.strip())
 
     @override_translation("en")
     @override_settings(SECURITY_TXT_SIGN=True, SECURITY_TXT_SIGNING_KEY="")
     def test_sign_security_txt__improperly_configured(self) -> None:
-        """
-        Test templatetag raises improperly configured error.
-        """
-
+        """Test templatetag raises improperly configured error."""
         with self.assertRaises(expected_exception=ImproperlyConfigured, msg=""):
             sign_security_txt(data="")
 
@@ -444,9 +398,6 @@ Hash: SHA256
         SECURITY_TXT_SIGN=True, SECURITY_TXT_SIGNING_KEY="/path/to/key.asc"
     )
     def test_sign_security_txt__improperly_configured__no_key(self) -> None:
-        """
-        Test templatetag raises improperly configured error for not existing key file.
-        """
-
+        """Test templatetag raises improperly configured error for not existing key file."""  # noqa: E501
         with self.assertRaises(expected_exception=ImproperlyConfigured, msg=""):
             sign_security_txt(data="")

@@ -4,19 +4,17 @@
 # security_txt/admin/encryption.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.contrib import admin
 
 
-__all__ = ["EncryptionAdmin"]  # type: List[str]
+__all__: List[str] = ["EncryptionAdmin"]
 
 
 class EncryptionAdmin(admin.ModelAdmin):  # type: ignore
-    """
-    Customize Encryption model for admin area.
-    """
+    """Customize Encryption model for admin area."""
 
-    list_display = ["pk", "type", "url", "dns", "fingerprint"]  # type: List[str]
-    search_fields = ["url", "dns", "fingerprint"]  # type: List[str]
-    list_filter = ["type"]  # type: List[str]
+    list_display: List[str] = ["pk", "type", "url", "dns", "fingerprint"]
+    search_fields: List[str] = ["url", "dns", "fingerprint"]
+    list_filter: List[str] = ["type"]

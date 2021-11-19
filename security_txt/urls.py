@@ -4,11 +4,11 @@
 # security_txt/urls.py
 
 
-from typing import List, Union  # pylint: disable=W0611
+from typing import List, Union
 
 from django.conf.urls import url
 from django.views.generic import TemplateView
-from django.urls.resolvers import URLPattern, URLResolver  # pylint: disable=W0611
+from django.urls.resolvers import URLPattern, URLResolver
 
 from security_txt.conf import settings
 
@@ -17,7 +17,7 @@ __all__ = ["urlpatterns"]
 
 
 # security.txt urls
-urlpatterns = [
+urlpatterns: List[Union[URLPattern, URLResolver]] = [
     url(
         r"^$",
         TemplateView.as_view(
@@ -26,4 +26,4 @@ urlpatterns = [
         ),
         name="security-txt",
     ),
-]  # type: List[Union[URLPattern, URLResolver]]
+]

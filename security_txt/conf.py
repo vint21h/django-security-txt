@@ -4,31 +4,27 @@
 # security_txt/conf.py
 
 
-from typing import List  # pylint: disable=W0611
-from datetime import datetime  # noqa: F401  # pylint: disable=W0611
+from typing import List
+from datetime import datetime  # noqa: F401
 
 from appconf import AppConf
 from django.conf import settings
 
 
-__all__ = ["settings"]  # type: List[str]
+__all__: List[str] = ["settings"]
 
 
 class DjangoSecurityTxtAppConf(AppConf):
-    """
-    Django security.txt settings.
-    """
+    """Django security.txt settings."""
 
-    EXPIRES = getattr(settings, "SECURITY_TXT_EXPIRES", None)  # type: datetime
-    PREFERRED_LANGUAGES = getattr(
+    EXPIRES: datetime = getattr(settings, "SECURITY_TXT_EXPIRES", None)
+    PREFERRED_LANGUAGES: List[str] = getattr(
         settings, "SECURITY_TXT_PREFERRED_LANGUAGES", None
-    )  # type: List[str]
-    SIGN = getattr(settings, "SECURITY_TXT_SIGN", False)  # type: bool
-    SIGN_KEY = getattr(settings, "SECURITY_TXT_SIGNING_KEY", "")  # type: str
+    )
+    SIGN: bool = getattr(settings, "SECURITY_TXT_SIGN", False)
+    SIGN_KEY: str = getattr(settings, "SECURITY_TXT_SIGNING_KEY", "")
 
     class Meta:
-        """
-        Config settings.
-        """
+        """Config settings."""
 
-        prefix = "security_txt"  # type: str
+        prefix: str = "security_txt"

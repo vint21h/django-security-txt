@@ -4,19 +4,17 @@
 # security_txt/apps.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
 
-__all__ = ["DjangoSecurityTxtConfig"]  # type: List[str]
+__all__: List[str] = ["DjangoSecurityTxtConfig"]
 
 
 class DjangoSecurityTxtConfig(AppConfig):
-    """
-    Django security.txt config.
-    """
+    """Django security.txt config."""
 
-    name = "security_txt"  # type: str
-    verbose_name = _("Django security.txt")  # type: str
+    name: str = "security_txt"
+    verbose_name: str = _("Django security.txt")

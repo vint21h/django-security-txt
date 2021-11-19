@@ -4,18 +4,16 @@
 # security_txt/admin/canonical.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.contrib import admin
 
 
-__all__ = ["CanonicalAdmin"]  # type: List[str]
+__all__: List[str] = ["CanonicalAdmin"]
 
 
 class CanonicalAdmin(admin.ModelAdmin):  # type: ignore
-    """
-    Customize Canonical model for admin area.
-    """
+    """Customize Canonical model for admin area."""
 
-    list_display = ["url"]  # type: List[str]
-    search_fields = ["url"]  # type: List[str]
+    list_display: List[str] = ["url"]
+    search_fields: List[str] = ["url"]
