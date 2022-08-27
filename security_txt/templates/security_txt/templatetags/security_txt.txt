@@ -1,7 +1,6 @@
 {# django-security-txt #}
 {# security_txt/templates/security_txt/templatetags/security_txt.txt #}
 
-
 {% if SECURITY_TXT_ACKNOWLEDGMENTS.exists %}
     # Our security acknowledgments page
     {% for acknowledgment in SECURITY_TXT_ACKNOWLEDGMENTS %}

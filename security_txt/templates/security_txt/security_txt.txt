@@ -4,11 +4,10 @@
 
 {% load security_txt_tags %}
 
-
-{% with security_txt as DATA %}
-    {% if SIGN %}
+{% if SIGN %}
+    {% with security_txt as DATA %}
         {% sign_security_txt DATA %}
-    {% else %}
-        {{ DATA }}
-    {% endif %}
-{% endwith %}
+    {% endwith %}
+{% else %}
+    {% security_txt %}
+{% endif %}
