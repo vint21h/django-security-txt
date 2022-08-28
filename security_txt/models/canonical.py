@@ -17,6 +17,9 @@ __all__: List[str] = ["Canonical"]
 class Canonical(models.Model):  # noqa: DJ10,DJ1
     """Canonical model."""
 
+    prefix: str = "Canonical:"
+    comment: str = "# Canonical URI"
+
     url = models.URLField(
         verbose_name=_("URL"),
         help_text=_(

@@ -1,3 +1,4 @@
+{% spaceless %}
 {# django-security-txt #}
 {# security_txt/templates/security_txt/security_txt.txt #}
 
@@ -11,3 +12,4 @@
 {% else %}
     {% security_txt %}
 {% endif %}
+{% endspaceless %}%}

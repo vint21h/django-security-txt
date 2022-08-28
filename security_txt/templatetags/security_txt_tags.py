@@ -60,7 +60,6 @@ def sign_security_txt(data: str) -> Dict[str, str]:
     if (settings.SECURITY_TXT_SIGN and not settings.SECURITY_TXT_SIGNING_KEY) or (  # type: ignore  # noqa: E501
         not Path(settings.SECURITY_TXT_SIGNING_KEY).exists()  # type: ignore  # noqa: E501
     ):
-
         raise ImproperlyConfigured
 
     key, _ = PGPKey.from_file(filename=settings.SECURITY_TXT_SIGNING_KEY)  # type: ignore  # noqa: E501

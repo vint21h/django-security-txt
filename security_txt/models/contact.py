@@ -26,6 +26,9 @@ __all__: List[str] = ["Contact"]
 class Contact(models.Model):  # noqa: DJ10,DJ1
     """Contact model."""
 
+    prefix: str = "Contact:"
+    comment: str = "# Our security address"
+
     TYPE_EMAIL, TYPE_PHONE, TYPE_URL = (
         CONTACT_TYPE_EMAIL,
         CONTACT_TYPE_PHONE,

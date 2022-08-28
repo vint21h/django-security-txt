@@ -17,6 +17,7 @@ __all__: List[str] = ["settings"]
 class DjangoSecurityTxtAppConf(AppConf):
     """Django security.txt settings."""
 
+    PATH: str = getattr(settings, "SECURITY_TXT_PATH", ".well-known/security.txt")
     EXPIRES: datetime = getattr(settings, "SECURITY_TXT_EXPIRES", None)
     PREFERRED_LANGUAGES: List[str] = getattr(
         settings, "SECURITY_TXT_PREFERRED_LANGUAGES", None

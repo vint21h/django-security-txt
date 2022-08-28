@@ -5,17 +5,19 @@
 
 
 from typing import List
-
-from django.test import TestCase
 from http import HTTPStatus
 
-from security_txt.models.acknowledgment import Acknowledgment
+from django.test import TestCase
+
 from security_txt.models.contact import Contact
+from security_txt.models.acknowledgment import Acknowledgment
+
 
 __all__: List[str] = ["URLTest"]
 
+
 class URLTest(TestCase):
-    """ test urls.py """
+    """test urls.py."""
 
     @classmethod
     def setUpTestData(cls) -> None:
@@ -26,10 +28,9 @@ class URLTest(TestCase):
         )
 
     def test_url(self) -> None:
-        """ Test status_code and content_type """
+        """Test status_code and content_type."""
         response = self.client.get("/")
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(response["content-type"], "text/plain")
         self.assertContains(response, "test@example.com")
         self.assertContains(response, "https://example.com")
-

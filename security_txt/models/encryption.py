@@ -27,6 +27,9 @@ __all__: List[str] = ["Encryption"]
 class Encryption(models.Model):  # noqa: DJ10,DJ1
     """Encryption model."""
 
+    prefix: str = "Encryption:"
+    comment: str = "# Our OpenPGP key"
+
     TYPE_URL, TYPE_DNS, TYPE_FINGERPRINT = (
         ENCRYPTION_TYPE_URL,
         ENCRYPTION_TYPE_DNS,

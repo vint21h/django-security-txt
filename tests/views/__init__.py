@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # django-security-txt
-# tests/urls/__init__.py
+# tests/templatetags/__init__.py
 
 
 from typing import List

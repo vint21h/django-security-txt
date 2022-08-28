@@ -17,6 +17,9 @@ __all__: List[str] = ["Hiring"]
 class Hiring(models.Model):  # noqa: DJ10,DJ1
     """Hiring model."""
 
+    prefix: str = "Hiring:"
+    comment: str = ""
+
     url = models.URLField(
         verbose_name=_("URL"),
         help_text=_("used for linking to the vendor's security-related job positions"),
