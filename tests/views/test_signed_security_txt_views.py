@@ -4,11 +4,11 @@
 # tests/views/test_signed_security_txt_views.py
 
 
-from http.client import HTTPResponse
 from typing import List
 from pathlib import Path
-from tempfile import NamedTemporaryFile
 from unittest import skip
+from http.client import HTTPResponse
+from tempfile import NamedTemporaryFile
 
 from pgpy import PGPUID, PGPKey
 from django.test import TestCase
