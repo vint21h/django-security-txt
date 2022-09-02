@@ -4,9 +4,9 @@
 # security_txt/models/languages.py
 
 
-from faulthandler import is_enabled
 from typing import List
 from dataclasses import dataclass
+from faulthandler import is_enabled
 
 from django.conf import settings
 
@@ -24,9 +24,7 @@ class Language:
 
     @property
     def is_enabled(self) -> bool:
-        """
-        
-        """
+        """ """
         return bool(settings.SECURITY_TXT_PREFERRED_LANGUAGES)
 
     def __str__(self) -> str:

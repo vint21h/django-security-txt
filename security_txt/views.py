@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
 # django-security-txt
-# security_txt/urls.py
+# security_txt/views.py
 
 
 import datetime
-from faulthandler import is_enabled
 from typing import List
 
 from pgpy import PGPKey
@@ -16,7 +15,13 @@ from django.http import HttpResponse
 from django.core.exceptions import ImproperlyConfigured
 
 from security_txt.models.languages import Language
-from security_txt.constants import CHARSET, CONTENT_TYPE, PGP_HASH, BEGIN_PGP_SIGNED_MESSAGE, SEPARATOR
+from security_txt.constants import (
+    CHARSET,
+    PGP_HASH,
+    SEPARATOR,
+    CONTENT_TYPE,
+    BEGIN_PGP_SIGNED_MESSAGE,
+)
 
 
 def get_security_txt_lines_by_model(model_class_name: str) -> List[str]:
@@ -38,8 +43,12 @@ def get_security_txt_lines_by_model(model_class_name: str) -> List[str]:
             security_txt_lines.append(f"{model_class.prefix} {str(entry)}")
     return security_txt_lines
 
+
 def get_security_txt_data() -> str:
     """
+    Returns a string with all available entries.
+    :return: security-txt string
+    :rtype: str
     """
     security_txt_lines: List[str] = []
     security_txt_lines.extend(get_security_txt_lines_by_model("Acknowledgment"))
@@ -53,7 +62,7 @@ def get_security_txt_data() -> str:
         expires_date: str = SECURITY_TXT_EXPIRES.isoformat()
     else:
         expires_date: str = ""
-    # MUST always be present 
+    # MUST always be present
     security_txt_lines.append(f"Expires: {expires_date}")
 
     security_txt_lines.extend(get_security_txt_lines_by_model("Hiring"))
@@ -68,8 +77,14 @@ def get_security_txt_data() -> str:
 
     return SEPARATOR.join(security_txt_lines)
 
+
 def signed_security_txt_data(data: str) -> str:
     """
+    Signs the security-txt content.
+
+    :param data: security-txt string
+    :return: signed security-txt content
+    :rtype: str
     """
     signed_data: List[str] = []
     try:
@@ -99,7 +114,7 @@ class SecurityTxtView(View):
         :return: text/plain httpresponse with security.txt as content
         :rtype: HttpResponse
         """
-        signed: bool = getattr(settings, 'SECURITY_TXT_SIGN', False)  # type: ignore # noqa: E261
+        signed: bool = getattr(settings, "SECURITY_TXT_SIGN", False)  # type: ignore # noqa: E261
 
         security_txt_data: List[str] = get_security_txt_data()
 
