@@ -76,7 +76,7 @@ def signed_security_txt_data(data: str) -> str:
         key, _ = PGPKey.from_file(filename=settings.SECURITY_TXT_SIGNING_KEY)  # type: ignore  # noqa: E501
     except (ValueError, PermissionError, FileNotFoundError):
         raise ImproperlyConfigured
-    signature: str = key.sign(subject=data)
+    signature: str = str(key.sign(subject=data))
     signed_data.append(BEGIN_PGP_SIGNED_MESSAGE)
     signed_data.append(PGP_HASH)
     signed_data.append(data)
@@ -99,7 +99,7 @@ class SecurityTxtView(View):
         :return: text/plain httpresponse with security.txt as content
         :rtype: HttpResponse
         """
-        signed: bool = settings.SECURITY_TXT_SIGN  # type: ignore # noqa: E261
+        signed: bool = getattr(settings, 'SECURITY_TXT_SIGN', False)  # type: ignore # noqa: E261
 
         security_txt_data: List[str] = get_security_txt_data()
 

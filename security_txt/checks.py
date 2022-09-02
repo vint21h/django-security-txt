@@ -5,12 +5,13 @@
 
 from typing import Any, List
 
-from django.core.checks import Error, register, Tags
+from django.core.checks import Error, Warning, register, Tags
 from django.conf import settings
+from django.apps import AppConfig
 
 
 @register(Tags.files)
-def check_if_key_exists_n_valid(_: Any, *__: Any, **___: Any) -> List[Error]:
+def check_if_key_exists_n_valid(apps_config: List[AppConfig], *__: Any, **___: Any) -> List[Error]:
     """
     Check if key file exists and can be loaded if SECURITY_TXT_SIGN is set to True.
 
@@ -37,3 +38,27 @@ def check_if_key_exists_n_valid(_: Any, *__: Any, **___: Any) -> List[Error]:
             )
     
     return errors
+
+def check_for_min_one_contact() -> List[Warning]:
+    """
+    Give a warning if not at least one contact is defined. 
+    :return: list with one warning
+    :rtype: List[]
+    """
+    pass
+
+def check_for_expiration_date() -> List[Warning]:
+    """
+    Give a warning if expiration date is in the past.
+    :return: list with one warning
+    :rtype: List[Warning]
+    """
+    pass
+
+def check_root_url() -> List[Warning]:
+    """
+    Give a warning if root_url doesn't accord to standard path as /.well-known/security.txt or /security.txt
+    :return: list with one warning
+    :rtype: List[]
+    """
+    pass
