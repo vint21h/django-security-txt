@@ -75,4 +75,7 @@ PHONENUMBER_DB_FORMAT: str = "INTERNATIONAL"
 SECURITY_TXT_EXPIRES: datetime = datetime(
     year=1997, month=8, day=29, hour=2, minute=14
 )
+
 SECURITY_TXT_PREFERRED_LANGUAGES: List[str] = ["en", "uk"]
+
+USE_TZ: bool = False

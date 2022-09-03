@@ -17,6 +17,9 @@ __all__: List[str] = ["Acknowledgment"]
 class Acknowledgment(models.Model):  # noqa: DJ10,DJ1
     """Acknowledgment model."""
 
+    prefix: str = "Acknowledgments:"
+    comment: str = "# Our security acknowledgments page"
+
     url = models.URLField(
         verbose_name=_("URL"),
         help_text=_("link to page where security researchers are recognized"),

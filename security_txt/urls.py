@@ -6,11 +6,10 @@
 
 from typing import List, Union
 
-from django.conf.urls import url
-from django.views.generic import TemplateView
+from django.urls import path
 from django.urls.resolvers import URLPattern, URLResolver
 
-from security_txt.conf import settings
+from security_txt.views import SecurityTxtView
 
 
 __all__ = ["urlpatterns"]
@@ -18,12 +17,9 @@ __all__ = ["urlpatterns"]
 
 # security.txt urls
 urlpatterns: List[Union[URLPattern, URLResolver]] = [
-    url(
-        r"^$",
-        TemplateView.as_view(
-            template_name="security_txt/security_txt.txt",
-            extra_context={"SIGN": settings.SECURITY_TXT_SIGN},  # type: ignore
-        ),
+    path(
+        "",
+        SecurityTxtView.as_view(),
         name="security-txt",
     ),
 ]

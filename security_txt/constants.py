@@ -43,3 +43,9 @@ ENCRYPTION_TYPE_CHOICES: Tuple[Tuple[int, str], ...] = (
 
 ENCRYPTION_DNS_REGEX: str = r"([0-9 A-F a-f]{16,64})(._openpgpkey.)((?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9])(\?type=OPENPGPKEY$)"  # noqa: E501
 ENCRYPTION_FINGERPRINT_REGEX: str = r"([0-9 A-F a-f]{16,64}$)"
+
+CONTENT_TYPE = "text/plain"
+CHARSET = "utf8"
+BEGIN_PGP_SIGNED_MESSAGE = "-----BEGIN PGP SIGNED MESSAGE-----"
+PGP_HASH = "Hash: SHA256"
+SEPARATOR: str = "\n"

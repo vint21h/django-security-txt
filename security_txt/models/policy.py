@@ -17,6 +17,9 @@ __all__: List[str] = ["Policy"]
 class Policy(models.Model):  # noqa: DJ10,DJ1
     """Policy model."""
 
+    prefix: str = "Policy:"
+    comment: str = "# Our security policy"
+
     url = models.URLField(
         verbose_name=_("URL"),
         help_text=_(
