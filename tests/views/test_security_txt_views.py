@@ -8,7 +8,6 @@ from typing import List
 from http.client import HTTPResponse
 
 from django.test import TestCase
-from django.template import Context, Template
 from django.test.utils import override_settings
 from django.utils.translation import override as override_translation
 
