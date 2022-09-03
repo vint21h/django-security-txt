@@ -54,7 +54,6 @@ def check_if_key_exists_n_valid(_: List[AppConfig] = None, **__: Any) -> List[Er
             errors.append(KEY_NOT_VALID_ERROR)
     return errors
 
-
 @register(Tags.models)
 def check_for_min_one_contact(_: List[AppConfig] = None, **__: Any) -> List[Warning]:
     """
@@ -67,7 +66,7 @@ def check_for_min_one_contact(_: List[AppConfig] = None, **__: Any) -> List[Warn
         warnings.append(NO_CONTACT_WARNING)
     return warnings
 
-
+@register(Tags.security)
 def check_for_expiration_date(_: List[AppConfig] = None, **__: Any) -> List[Warning]:
     """
     Give a warning if expiration date is in the past.
@@ -80,8 +79,7 @@ def check_for_expiration_date(_: List[AppConfig] = None, **__: Any) -> List[Warn
         warnings.append(EXPIRY_DATE_WARNING)
     return warnings
 
-
-
+@register(Tags.security)
 def check_root_url(_: List[AppConfig] = None, **__: Any) -> List[Warning]:
     """
     Give a warning if root_url doesn't accord to standard path as /.well-known/security.txt or /security.txt

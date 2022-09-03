@@ -8,7 +8,6 @@ from typing import List
 
 from django.test import TestCase
 from django.test.utils import override_settings
-from django.urls import reverse
 
 from pathlib import Path
 from tempfile import NamedTemporaryFile
@@ -18,19 +17,27 @@ from pgpy.constants import (
     HashAlgorithm,
     PubKeyAlgorithm,
     CompressionAlgorithm,
-    SymmetricKeyAlgorithm,
+    SymmetricKeyAlgorithm
 )
 
-from security_txt.checks import EXPIRY_DATE_WARNING, KEY_NOT_VALID_ERROR, NO_CONTACT_WARNING, check_for_expiration_date, check_for_min_one_contact, check_if_key_exists_n_valid
+from security_txt.checks import (
+    EXPIRY_DATE_WARNING, 
+    KEY_NOT_VALID_ERROR, 
+    NO_CONTACT_WARNING, 
+    check_for_expiration_date, 
+    check_for_min_one_contact, 
+    check_if_key_exists_n_valid
+)
 from security_txt.models.contact import Contact
+from tests.views.test_signed_security_txt_views import generate_key_pair_in_tempfile
 
 __all__: List[str] = ["SecurityTxtCheckTest"]
 
 
-KEY_PATH: str = NamedTemporaryFile().name
-
 class SecurityTxtCheckTest(TestCase):
     """Test all the system checks."""
+    
+    KEY_PATH: str = NamedTemporaryFile().name
 
     @override_settings(SECURITY_TXT_SIGN=False)
     def test_no_sign_no_key(self):
@@ -42,35 +49,7 @@ class SecurityTxtCheckTest(TestCase):
     
     @override_settings(SECURITY_TXT_SIGN=True, SECURITY_TXT_SIGNING_KEY=KEY_PATH)
     def test_sign_w_key(self):
-        key = PGPKey.new(PubKeyAlgorithm.RSAEncryptOrSign, 4096)
-        uid = PGPUID.new(pn="TEST", comment="Test", email="test@example.com")
-        key.add_uid(
-            uid,
-            usage={
-                KeyFlags.Sign,
-                KeyFlags.EncryptCommunications,
-                KeyFlags.EncryptStorage,
-            },
-            hashes=[
-                HashAlgorithm.SHA256,
-                HashAlgorithm.SHA384,
-                HashAlgorithm.SHA512,
-                HashAlgorithm.SHA224,
-            ],
-            ciphers=[
-                SymmetricKeyAlgorithm.AES256,
-                SymmetricKeyAlgorithm.AES192,
-                SymmetricKeyAlgorithm.AES128,
-            ],
-            compression=[
-                CompressionAlgorithm.ZLIB,
-                CompressionAlgorithm.BZ2,
-                CompressionAlgorithm.ZIP,
-                CompressionAlgorithm.Uncompressed,
-            ],
-        )
-        Path(KEY_PATH).write_text(data=str(key))
-
+        generate_key_pair_in_tempfile(self.KEY_PATH)
         self.assertListEqual(check_if_key_exists_n_valid(), [])
     
     def test_min_one_contact_warning(self):
@@ -82,6 +61,7 @@ class SecurityTxtCheckTest(TestCase):
         self.assertListEqual(check_for_expiration_date(), [EXPIRY_DATE_WARNING])
 
     def test_check_root_url_correct(self):
+        # from django.urls import reverse
         # url = reverse('security-txt:SecurityTxtView')
         # import pdb; pdb.set_trace()
         # TODO:

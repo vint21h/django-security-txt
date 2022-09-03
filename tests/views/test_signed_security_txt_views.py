@@ -27,6 +27,37 @@ from security_txt.views import signed_security_txt_data
 
 __all__: List[str] = ["SignSecurityTxtViewTest"]
 
+def generate_key_pair_in_tempfile(key_path: str) -> None:
+    key = PGPKey.new(PubKeyAlgorithm.RSAEncryptOrSign, 4096)
+    uid = PGPUID.new(pn="TEST", comment="Test", email="test@example.com")
+    key.add_uid(
+        uid,
+        usage={
+            KeyFlags.Sign,
+            KeyFlags.EncryptCommunications,
+            KeyFlags.EncryptStorage,
+        },
+        hashes=[
+            HashAlgorithm.SHA256,
+            HashAlgorithm.SHA384,
+            HashAlgorithm.SHA512,
+            HashAlgorithm.SHA224,
+        ],
+        ciphers=[
+            SymmetricKeyAlgorithm.AES256,
+            SymmetricKeyAlgorithm.AES192,
+            SymmetricKeyAlgorithm.AES128,
+        ],
+        compression=[
+            CompressionAlgorithm.ZLIB,
+            CompressionAlgorithm.BZ2,
+            CompressionAlgorithm.ZIP,
+            CompressionAlgorithm.Uncompressed,
+        ],
+    )
+    Path(key_path).write_text(data=str(key))
+
+
 
 class SignSecurityTxtViewTest(TestCase):
     """Sign security.txt templatetag tests."""
@@ -49,34 +80,7 @@ class SignSecurityTxtViewTest(TestCase):
             b"Hash: SHA256",
             b"-----BEGIN PGP SIGNATURE-----"
         ]
-        key = PGPKey.new(PubKeyAlgorithm.RSAEncryptOrSign, 4096)
-        uid = PGPUID.new(pn="TEST", comment="Test", email="test@example.com")
-        key.add_uid(
-            uid,
-            usage={
-                KeyFlags.Sign,
-                KeyFlags.EncryptCommunications,
-                KeyFlags.EncryptStorage,
-            },
-            hashes=[
-                HashAlgorithm.SHA256,
-                HashAlgorithm.SHA384,
-                HashAlgorithm.SHA512,
-                HashAlgorithm.SHA224,
-            ],
-            ciphers=[
-                SymmetricKeyAlgorithm.AES256,
-                SymmetricKeyAlgorithm.AES192,
-                SymmetricKeyAlgorithm.AES128,
-            ],
-            compression=[
-                CompressionAlgorithm.ZLIB,
-                CompressionAlgorithm.BZ2,
-                CompressionAlgorithm.ZIP,
-                CompressionAlgorithm.Uncompressed,
-            ],
-        )
-        Path(self.KEY_PATH).write_text(data=str(key))
+        generate_key_pair_in_tempfile(self.KEY_PATH)
         response: HTTPResponse = self.client.get("/")
         result: bytes = response.content
         for expected in expected_list:
