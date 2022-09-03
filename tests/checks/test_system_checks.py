@@ -9,16 +9,7 @@ from typing import List
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from pathlib import Path
 from tempfile import NamedTemporaryFile
-from pgpy import PGPUID, PGPKey
-from pgpy.constants import (
-    KeyFlags,
-    HashAlgorithm,
-    PubKeyAlgorithm,
-    CompressionAlgorithm,
-    SymmetricKeyAlgorithm
-)
 
 from security_txt.checks import (
     EXPIRY_DATE_WARNING, 
